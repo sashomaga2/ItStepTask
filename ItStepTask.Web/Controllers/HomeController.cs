@@ -3,14 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using ItStepTask.Data;
+using ItStepTask.Services;
+using ItStepTask.Services.Contracts;
+using ItStepTask.Web.Models;
 
 namespace ItStepTask.Web.Controllers
 {
     public class HomeController : Controller
     {
+        // TODO use dependency injection
+        private IPostService postsService;
         public ActionResult Index()
         {
-            return View();
+            var postService = new PostService(new TaskData());
+            var userService = new UsersService(new TaskData());
+            var model = postService.GetAll().Select(p => 
+                new PostViewModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Content = p.Content,
+                    SubHeader = p.Title,
+                    Author = new ApplicationUserViewModel {  Email = p.Author.Email, UserName = p.Author.UserName },
+                    CreatedOn = p.CreatedOn
+                }).ToList();
+            return View(model);
         }
 
         public ActionResult About()
