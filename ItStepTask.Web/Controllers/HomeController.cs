@@ -16,9 +16,14 @@ namespace ItStepTask.Web.Controllers
     {
         // TODO use dependency injection
         private IPostService postsService;
+
+        public HomeController(IPostService postsService)
+        {
+            this.postsService = postsService;
+        }
         public ActionResult Index()
         {
-            var postService = new PostService(new TaskData());
+            //var postService = new PostService(new TaskData());
             //var userService = new UsersService(new TaskData());
             //var model = postService.GetAll().Select(p => 
             //    new PostViewModel
@@ -32,7 +37,7 @@ namespace ItStepTask.Web.Controllers
             //    }).ToList();
 
             var posts = Mapper.Map<ICollection<Post>,
-                ICollection<PostViewModel>>(postService.GetAll().ToList());
+                ICollection<PostViewModel>>(postsService.GetAll().ToList());
 
             return View(posts);
         }
