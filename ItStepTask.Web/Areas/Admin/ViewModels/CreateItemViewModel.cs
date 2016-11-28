@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace ItStepTask.Web.Areas.Admin.ViewModels
 {
-    public class ItemViewModel
+    public class CreateItemViewModel
     {
         [Key]
         public int Id { get; set; }
@@ -17,9 +17,12 @@ namespace ItStepTask.Web.Areas.Admin.ViewModels
 
         public int Quantity { get; set; }
 
-        public string CategoryName { get; set; }
+        public IEnumerable<SelectListItem> SuppliersSelectListItems { get; set; }
 
-        public string SupplierName { get; set; }
+        public int SupplierId { get; set; }
 
+        public IEnumerable<SelectListItem> CategoriesSelectListItems { get; set; }
+
+        public int CategoryId { get; set; }
     }
 }

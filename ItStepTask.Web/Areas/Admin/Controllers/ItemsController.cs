@@ -14,20 +14,24 @@ using ItStepTask.Entity;
 
 namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
 {
+    [Authorize(Roles = "Admin")]
     public class ItemsController : BaseController
     {
         private readonly IItemsService itemsService;
+        private readonly ICategoryService categoryService;
+        private readonly ISuppliersService suppliersService;
 
-        public ItemsController(IItemsService itemsService)
+        public ItemsController(IItemsService itemsService,
+                               ICategoryService categoryService,
+                               ISuppliersService suppliersService)
         {
             this.itemsService = itemsService;
+            this.categoryService = categoryService;
+            this.suppliersService = suppliersService;
         }
 
         public ActionResult Index()
         {
-
-
-
             var items = Mapper.Map<ICollection<Item>,
                 ICollection<ItemViewModel>>(itemsService.GetAll().ToList());
 
@@ -36,19 +40,42 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
 
         public ActionResult Create()
         {
-            return View();
+            var cats = categoryService.GetAll().ToArray();
+            var suppliers = suppliersService.GetAll().ToArray();
+            var model = new CreateItemViewModel
+            {
+                CategoriesSelectListItems = Mapper.Map<ICollection<Category>, ICollection<SelectListItem>>(cats),
+                SuppliersSelectListItems = Mapper.Map<ICollection<Supplier>, ICollection<SelectListItem>>(suppliers)
+            };
+
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ItemViewModel model)
+        public ActionResult Create(CreateItemViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            itemsService.Add(Mapper.Map<Item>(model));
+            var item = Mapper.Map<Item>(model);
+            var supplier = suppliersService.Find(model.SupplierId);
+            if (supplier == null)
+            {
+                return HttpNotFound();
+            }
+            item.Supplier = supplier;
+
+            var category = categoryService.Find(model.CategoryId);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            item.Category = category;
+
+            itemsService.Add(item);
 
             return RedirectToAction("Index");
         }

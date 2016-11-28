@@ -28,11 +28,22 @@ namespace ItStepTask.Web.Mapping
                     dest => dest.Text, opt => opt.MapFrom(src => src.Name)
                 );
 
+            CreateMap<Supplier, SelectListItem>()
+                .ForMember(
+                    dest => dest.Value, opt => opt.MapFrom(src => src.Id)
+                )
+                .ForMember(
+                    dest => dest.Text, opt => opt.MapFrom(src => src.Name)
+                );
+
             CreateMap<Item, ItemViewModel>()
-                .ForMember(dest => dest.CategoryId,
-                    opt => opt.MapFrom(src => src.Category.Id))
-                .ForMember(dest => dest.SupplierId,
-                    opt => opt.MapFrom(src => src.Supplier.Id));
+                .ForMember(dest => dest.CategoryName,
+                    opt => opt.MapFrom(src => src.Category.Name))
+                .ForMember(dest => dest.SupplierName,
+                    opt => opt.MapFrom(src => src.Supplier.Name));
+
+            CreateMap<CreateItemViewModel, Item>();
+                
 
             //.ForMember(dest => dest.CategoriesSelectListItems,
             //        src => src.ResolveUsing((item, orderDto, i, context) => 

@@ -14,6 +14,7 @@ using ItStepTask.Entity;
 
 namespace ItStepTask.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SuppliersController : BaseController
     {
         private readonly ISuppliersService suppliersService;

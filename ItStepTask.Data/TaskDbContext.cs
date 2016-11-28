@@ -28,8 +28,5 @@
         {
             return new TaskDbContext();
         }
-
-        public System.Data.Entity.DbSet<ItStepTask.Entity.Supplier> Suppliers { get; set; }
-
     }
 }

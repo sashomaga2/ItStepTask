@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace ItStepTask.Web.Areas.Admin.Controllers
 {
-    // TODO role admin
+    [Authorize(Roles = "Admin")]
     public class CategoriesController : BaseController
     {
         private readonly ICategoryService categoryService;

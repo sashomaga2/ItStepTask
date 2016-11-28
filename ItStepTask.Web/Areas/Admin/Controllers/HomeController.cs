@@ -6,12 +6,15 @@ using System.Web.Mvc;
 
 namespace ItStepTask.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
+
+        //private TestDbTest
         // GET: Admin/Home
         public ActionResult Index()
         {
-
+            
             return View();
         }
     }
