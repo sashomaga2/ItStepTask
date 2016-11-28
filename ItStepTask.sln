@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItStepTask.Web", "ItStepTask.Web\ItStepTask.Web.csproj", "{056876B9-3F87-4E41-B499-F82BEF8F4955}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItStepTask.Web.Tests", "ItStepTask.Web.Tests\ItStepTask.Web.Tests.csproj", "{F1BF4CB9-3584-49A3-BCC6-8A9BB85BD555}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITStepTask.Entity", "ITStepTask.Entity\ITStepTask.Entity.csproj", "{B4254AAF-4406-41E6-84E1-F4A80DA2C4E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItStepTask.Entity", "ITStepTask.Entity\ItStepTask.Entity.csproj", "{B4254AAF-4406-41E6-84E1-F4A80DA2C4E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItStepTask.Data", "ItStepTask.Data\ItStepTask.Data.csproj", "{6C7943A7-1C04-4EB2-863E-528C86C6CED6}"
 EndProject

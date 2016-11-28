@@ -16,6 +16,9 @@ namespace ItStepTask.Web.IoCContainer.Installers
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IPostService>().ImplementedBy<PostService>().LifeStyle.PerWebRequest);
+            container.Register(Component.For<ICategoryService>().ImplementedBy<CategoryService>().LifeStyle.PerWebRequest);
+            container.Register(Component.For<ISuppliersService>().ImplementedBy<SuppliersService>().LifeStyle.PerWebRequest);
+            container.Register(Component.For<IItemsService>().ImplementedBy<ItemsService>().LifeStyle.PerWebRequest);
             container.Register(Component.For<ITaskData>().ImplementedBy<TaskData>().LifeStyle.PerWebRequest);
         }
     }

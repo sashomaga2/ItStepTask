@@ -9,7 +9,7 @@ using ItStepTask.Data;
 
 namespace ItStepTask.Services
 {
-    public class UsersService :BaseService<ApplicationUser>, IUsersService
+    public class UsersService : BaseService<ApplicationUser>, IUsersService
     {
         public UsersService(ITaskData data)
             :base(data)

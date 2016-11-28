@@ -11,6 +11,11 @@ namespace ItStepTask.Entity
 {
     public class ApplicationUser : IdentityUser
     {
+        public ApplicationUser()
+        {
+            Reviews = new HashSet<Review>();
+        }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -18,5 +23,7 @@ namespace ItStepTask.Entity
             // Add custom user claims here
             return userIdentity;
         }
+
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

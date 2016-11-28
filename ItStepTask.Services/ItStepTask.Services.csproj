@@ -58,11 +58,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseService.cs" />
+    <Compile Include="CategoryService.cs" />
+    <Compile Include="Contracts\ICategoryService.cs" />
+    <Compile Include="Contracts\IItemsService.cs" />
     <Compile Include="Contracts\IPostService.cs" />
     <Compile Include="Contracts\IService.cs" />
+    <Compile Include="Contracts\ISuppliersService.cs" />
     <Compile Include="Contracts\IUsersService.cs" />
+    <Compile Include="ItemsService.cs" />
     <Compile Include="PostService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SuppliersService.cs" />
     <Compile Include="UsersService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,9 +76,9 @@
       <Project>{6c7943a7-1c04-4eb2-863e-528c86c6ced6}</Project>
       <Name>ItStepTask.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ITStepTask.Entity\ITStepTask.Entity.csproj">
+    <ProjectReference Include="..\ITStepTask.Entity\ItStepTask.Entity.csproj">
       <Project>{b4254aaf-4406-41e6-84e1-f4a80da2c4e1}</Project>
-      <Name>ITStepTask.Entity</Name>
+      <Name>ItStepTask.Entity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
