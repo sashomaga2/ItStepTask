@@ -10,35 +10,49 @@
 
 </head>
 <body>
-    
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Best shop", "Index", "Shop", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Shop")</li>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("Administration", "Index", "Home", new { Area = "Admin" }, new { })</li>
-                    }
-                    @if (User.IsInRole("Manager"))
-                    {
-                        <li>@Html.ActionLink("Managment", "Index", "Home", new { Area = "Managment" }, new { })</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
-                @Html.Partial("_Categories", @Model)
-                @Html.Partial("_ShoppingCartPartual", @Model)
-            </div>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Best shop", "Index", "Shop", new {area = ""}, new {@class = "navbar-brand"})
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Shop")</li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li>@Html.ActionLink("Administration", "Index", "Home", new {Area = "Admin"}, new {})</li>
+                }
+                @if (User.IsInRole("Manager"))
+                {
+                    <li>@Html.ActionLink("Managment", "Index", "Home", new {Area = "Managment"}, new {})</li>
+                }
+            </ul>
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
+    <div class="container">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                @Html.Partial("_Categories", @Model)
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.Partial("_ShoppingCartPartual", @Model)
+            </li>
+        </ul>
+        
+
+    </div>
+</div>
+
+
 <div class="container body-content">
     <div id="grid">
 
