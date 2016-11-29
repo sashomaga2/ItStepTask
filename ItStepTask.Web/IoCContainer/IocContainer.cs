@@ -14,14 +14,14 @@ namespace ItStepTask.Web.IoCContainer
     {
         private static IWindsorContainer _container;
 
-        public static void Setup()
+        public static IWindsorContainer Setup()
         {
             _container = new WindsorContainer().Install(FromAssembly.This());
 
             WindsorControllerFactory controllerFactory = new WindsorControllerFactory(_container.Kernel);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
 
-            
+            return _container;
         }
 
         public static void Dispose()

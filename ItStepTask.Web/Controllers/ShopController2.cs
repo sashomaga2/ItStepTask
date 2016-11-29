@@ -8,11 +8,11 @@ using System.Web.Mvc;
 
 namespace ItStepTask.Web.Controllers
 {
-    public class ShopController : Controller
+    public class ShopController2 : Controller
     {
         private readonly IShopService shopService;
 
-        public ShopController(IShopService shopService)
+        public ShopController2(IShopService shopService)
         {
             this.shopService = shopService;
         }

@@ -1,8 +1,15 @@
 ﻿$(function () {
     var ajaxCategoryChange = function () {
-        var url = "/shop/categoryChange";
+        var url = "api/Shop";
 
         console.log("this", $(this).val());
+
+        //$.ajax({
+        //    type: "POST",
+        //    data: JSON.stringify(customer),
+        //    url: "api/Customer",
+        //    contentType: "application/json"
+        //});
 
         $.ajax({
             type: 'POST',
