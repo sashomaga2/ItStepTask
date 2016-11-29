@@ -36,11 +36,13 @@ namespace ItStepTask.Web.Mapping
                     dest => dest.Text, opt => opt.MapFrom(src => src.Name)
                 );
 
-            CreateMap<Item, ItemViewModel>()
+            CreateMap<Item, ItemAdminViewModel>()
                 .ForMember(dest => dest.CategoryName,
                     opt => opt.MapFrom(src => src.Category.Name))
                 .ForMember(dest => dest.SupplierName,
                     opt => opt.MapFrom(src => src.Supplier.Name));
+
+            CreateMap<Item, ItemViewModel>();
 
             CreateMap<CreateItemViewModel, Item>();
                 

@@ -236,13 +236,17 @@
     <Compile Include="Areas\Admin\Controllers\SuppliersController.cs" />
     <Compile Include="Areas\Admin\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\CreateItemViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\ItemViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ItemAdminViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\SupplierViewModel.cs" />
+    <Compile Include="Areas\Managment\Controllers\DiscountController.cs" />
+    <Compile Include="Areas\Managment\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Managment\ManagmentAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -255,7 +259,10 @@
     <Compile Include="Mapping\ViewModelProfile.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUserViewModel.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ItemViewModel.cs" />
+    <Compile Include="Models\LayoutViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -290,7 +297,9 @@
     <Content Include="Areas\Admin\Views\Items\oldIndex.cshtml" />
     <Content Include="Areas\Admin\Views\Items\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Items\Create.cshtml" />
+    <Content Include="Areas\Managment\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\category.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -336,9 +345,16 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_ShoppingCartPartual.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\Shared\_Categories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Managment\Models\" />
+    <Folder Include="Areas\Managment\Views\Discount\" />
+    <Folder Include="Areas\Managment\Views\Home\" />
+    <Folder Include="Areas\Managment\Views\Shared\" />
     <Folder Include="Views\Shop\" />
   </ItemGroup>
   <ItemGroup>

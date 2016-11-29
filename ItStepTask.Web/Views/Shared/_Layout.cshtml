@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model ItStepTask.Web.Models.LayoutViewModel
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -9,6 +10,7 @@
 
 </head>
 <body>
+    
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -26,8 +28,14 @@
                     {
                         @Html.ActionLink("Administration", "Index", "Home", new { Area = "Admin" }, new { })
                     }
+                    @if (User.IsInRole("Manager"))
+                    {
+                        @Html.ActionLink("Managment", "Index", "Home", new { Area = "Managment" }, new { })
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
+                @Html.Partial("_Categories", @Model)
+                @Html.Partial("_ShoppingCartPartual", @Model)
             </div>
         </div>
     </div>
@@ -41,6 +49,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/custom")
     @RenderSection("scripts", required: false)
 </body>
 </html>

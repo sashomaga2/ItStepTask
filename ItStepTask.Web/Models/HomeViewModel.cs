@@ -6,10 +6,9 @@ using System.Web;
 
 namespace ItStepTask.Web.Models
 {
-    public class ApplicationUserViewModel
+    public class HomeViewModel : LayoutViewModel
     {
-        public string UserName { get; set; }
-
-        public string Email { get; set; }    
+        public ItemViewModel Item { get; set; }
+        public IEnumerable<ItemViewModel> Items { get; set; }
     }
 }

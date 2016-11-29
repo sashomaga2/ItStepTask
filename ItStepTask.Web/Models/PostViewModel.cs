@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ItStepTask.Web.Models
 {
-    public class PostViewModel //: IMapFrom<Post>, IMapTo<Post>
+    public class PostViewModel
     {
         public int Id { get; set; }
 

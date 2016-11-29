@@ -16,39 +16,49 @@ namespace ItStepTask.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        // TODO use dependency injection
-        private IPostService postsService;
-        // TODO remove
-        private TaskDbContext db = new TaskDbContext();
+        private readonly IPostService postsService;
+        private readonly IShoppingCartService shoppingCartService;
+        private readonly IShopService shopService;
+        private readonly ICategoryService categoryService;
 
-        public HomeController(IPostService postsService)
+        // TODO remove
+        //private TaskDbContext db = new TaskDbContext();
+
+        public HomeController(  IPostService postsService, 
+                                IShoppingCartService shoppingCartService, 
+                                IShopService shopService,
+                                ICategoryService categoryService)
         {
             this.postsService = postsService;
+            this.shoppingCartService = shoppingCartService;
+            this.shopService = shopService;
+            this.categoryService = categoryService;
         }
+
+        private int GetSelectedCategoryId(string userId)
+        {
+            if(Session["categoryId"] == null)
+            {
+                Session["categoryId"] = shopService.GetSelectedCategory(userId);
+            }
+
+            return (int)Session["categoryId"];
+        }
+
         public ActionResult Index()
         {
-            //var postService = new PostService(new TaskData());
-            //var userService = new UsersService(new TaskData());
-            //var model = postService.GetAll().Select(p => 
-            //    new PostViewModel
-            //    {
-            //        Id = p.Id,
-            //        Title = p.Title,
-            //        Content = p.Content,
-            //        SubHeader = p.Title,
-            //        Author = new ApplicationUserViewModel {  Email = p.Author.Email, UserName = p.Author.UserName },
-            //        CreatedOn = p.CreatedOn
-            //    }).ToList();
+            var userId = User.Identity.GetUserId();
+            int categoryId = GetSelectedCategoryId(userId);
 
-            //var users = db.Users.ToList();
+            var model = new HomeViewModel
+            {
+                SelectedCategoryId = categoryId,
+                Items = Mapper.Map<IEnumerable<Item>, IEnumerable<ItemViewModel>>(shopService.GetItems(categoryId)),
+                ShoppingCartItemsCount = shopService.GetShoppingCartItemsCount(userId),
+                Categories = Mapper.Map<IEnumerable<Category>, IEnumerable<SelectListItem>>(categoryService.GetAll())
+            };
 
-            //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-            //UserManager.AddToRole(users.First().Id, "Admin");
-
-            var posts = Mapper.Map<ICollection<Post>,
-                ICollection<PostViewModel>>(postsService.GetAll().ToList());
-
-            return View(posts);
+            return View(model);
         }
 
         public ActionResult About()

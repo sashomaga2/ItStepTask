@@ -16,5 +16,11 @@ namespace ItStepTask.Services
         {
         }
 
+        public override void Add(ApplicationUser entity)
+        {
+            base.Add(entity);
+            base.SaveChanges();
+        }
+
     }
 }

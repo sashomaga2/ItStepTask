@@ -38,6 +38,46 @@
             }
         }
 
+        public IRepository<Item> Items
+        {
+            get
+            {
+                return this.GetRepository<Item>();
+            }
+        }
+
+        public IRepository<Category> Categories
+        {
+            get
+            {
+                return this.GetRepository<Category>();
+            }
+        }
+
+        public IRepository<ShoppingCart> ShoppingCart
+        {
+            get
+            {
+                return this.GetRepository<ShoppingCart>();
+            }
+        }
+
+        public IRepository<Supplier> Suppliers
+        {
+            get
+            {
+                return this.GetRepository<Supplier>();
+            }
+        }
+
+        public IRepository<UserData> UserData
+        {
+            get
+            {
+                return this.GetRepository<UserData>();
+            }
+        }
+
         public IRepository<T> GetRepository<T>() where T : class
         {
             var typeOfRepository = typeof(T);

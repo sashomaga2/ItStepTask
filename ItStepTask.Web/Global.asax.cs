@@ -28,7 +28,6 @@ namespace ItStepTask.Web
         protected void Application_End()
         {
             IocContainer.Dispose();
-
         }
     }
 }

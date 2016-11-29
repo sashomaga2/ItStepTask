@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace ItStepTask.Web.Areas.Admin.ViewModels
 {
-    public class ItemViewModel
+    public class ItemAdminViewModel
     {
         [Key]
         public int Id { get; set; }

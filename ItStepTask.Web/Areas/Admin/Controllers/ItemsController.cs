@@ -33,7 +33,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
         public ActionResult Index()
         {
             var items = Mapper.Map<ICollection<Item>,
-                ICollection<ItemViewModel>>(itemsService.GetAll().ToList());
+                ICollection<ItemAdminViewModel>>(itemsService.GetAll().ToList());
 
             return View(items);
         }
@@ -95,12 +95,12 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
                 return HttpNotFound();
             }
 
-            return View(Mapper.Map<ItemViewModel>(item));
+            return View(Mapper.Map<ItemAdminViewModel>(item));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ItemViewModel model)
+        public ActionResult Edit(ItemAdminViewModel model)
         {
             if (!ModelState.IsValid)
             {
