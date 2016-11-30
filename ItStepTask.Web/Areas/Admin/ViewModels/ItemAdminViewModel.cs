@@ -21,5 +21,7 @@ namespace ItStepTask.Web.Areas.Admin.ViewModels
 
         public string SupplierName { get; set; }
 
+        public byte[] Image { get; set; }
+
     }
 }

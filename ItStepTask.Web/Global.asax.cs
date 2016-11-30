@@ -9,6 +9,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using ItStepTask.Web.IoCContainer;
 using ItStepTask.Web.Mapping;
+using System.Web.SessionState;
 
 namespace ItStepTask.Web
 {
@@ -28,6 +29,19 @@ namespace ItStepTask.Web
             //GlobalConfiguration.Configuration.Services.Replace(
             //        typeof(IHttpControllerActivator),
             //            new WindsorCompositionRoot(this.container));
+        }
+
+        protected void Application_PostAuthorizeRequest()
+        {
+            if (IsWebApiRequest())
+            {
+                HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+            }
+        }
+
+        private bool IsWebApiRequest()
+        {
+            return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith(WebApiConfig.UrlPrefixRelative);
         }
 
         protected void Application_End()

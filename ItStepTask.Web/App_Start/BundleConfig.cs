@@ -9,10 +9,10 @@ namespace ItStepTask.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/kendo.all.min.js",
-                        "~/Scripts/kendo-init.js"
+                        "~/Scripts/jquery-{version}.js"
                         ));
+
+
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -23,7 +23,10 @@ namespace ItStepTask.Web
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
-                        "~/Scripts/category.js"));
+                        "~/Scripts/kendo.all.min.js",
+                        "~/Scripts/kendo-init.js",
+                        "~/Scripts/category.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",

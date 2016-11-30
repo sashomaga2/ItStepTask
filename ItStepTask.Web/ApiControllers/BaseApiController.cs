@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using ItStepTask.Web.Mapping;
+using ItStepTask.Entity;
+using System.Web;
 
 namespace ItStepTask.Web.ApiControllers
 {

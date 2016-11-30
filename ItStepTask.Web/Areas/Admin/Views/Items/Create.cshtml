@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
     
@@ -52,6 +52,12 @@
                 @Html.DropDownListFor(model => model.SupplierId, Model.SuppliersSelectListItems, new { @class = "form-control" })
             </div>
         </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Image)
+        </div>
+
+        <input name="ImageFile" type="file" />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

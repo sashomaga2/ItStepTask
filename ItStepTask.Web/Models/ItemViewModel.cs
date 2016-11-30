@@ -15,5 +15,9 @@ namespace ItStepTask.Web.Models
         public decimal Price { get; set; }
 
         public int Quantity { get; set; }
+
+        //public byte[] Image { get; set; }
+
+        public string Image { get; set; } //{ return Image != null ? Convert.ToBase64String(Image) : null; }
     }
 }

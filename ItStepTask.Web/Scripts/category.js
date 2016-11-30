@@ -1,15 +1,8 @@
 ﻿$(function () {
     var ajaxCategoryChange = function () {
-        var url = "api/Shop";
+        var url = "shop/CategoryChange";
 
         console.log("this", $(this).val());
-
-        //$.ajax({
-        //    type: "POST",
-        //    data: JSON.stringify(customer),
-        //    url: "api/Customer",
-        //    contentType: "application/json"
-        //});
 
         $.ajax({
             type: 'POST',
@@ -18,7 +11,8 @@
             data: { categoryId: $(this).val() },
             success: function (data) {
                 console.log("Success!!!", data);
-                location.reload(true);
+                $("#grid").data("kendoGrid").dataSource.read();
+                //location.reload(true);
             },
             error: function (xhr, err) {
                 alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);

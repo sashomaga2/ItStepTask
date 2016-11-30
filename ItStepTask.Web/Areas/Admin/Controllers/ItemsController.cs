@@ -11,6 +11,7 @@ using ItStepTask.Web.Areas.Admin.ViewModels;
 using ItStepTask.Services.Contracts;
 using ItStepTask.Web.Controllers;
 using ItStepTask.Entity;
+using System.IO;
 
 namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
 {
@@ -53,11 +54,18 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateItemViewModel model)
+        public ActionResult Create(CreateItemViewModel model, HttpPostedFileBase ImageFile)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }
+
+            using (var ms = new MemoryStream())
+            {
+                ImageFile.InputStream.CopyTo(ms);
+                model.Image = ms.ToArray();
             }
 
             var item = Mapper.Map<Item>(model);

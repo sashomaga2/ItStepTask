@@ -24,5 +24,7 @@ namespace ItStepTask.Web.Areas.Admin.ViewModels
         public IEnumerable<SelectListItem> CategoriesSelectListItems { get; set; }
 
         public int CategoryId { get; set; }
+
+        public byte[] Image { get; set; }
     }
 }

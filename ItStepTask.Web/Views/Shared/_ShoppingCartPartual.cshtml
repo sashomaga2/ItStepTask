@@ -3,7 +3,7 @@
 @if (@Model != null)
 {
 
-    <a href="@Url.Action("Index", "ShoppingCart")"><span class="badge">@Model.ShoppingCartItemsCount</span></a>
+    <a href="@Url.Action("Index", "ShoppingCart")"><span class="badge" id="shopCartCount">@Model.ShoppingCartItemsCount</span></a>
 }
 
 
