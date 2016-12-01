@@ -26,6 +26,8 @@
 
         public IDbSet<UserData> UserData { get; set; }
 
+        public IDbSet<Order> Orders { get; set; }
+
         public static TaskDbContext Create()
         {
             return new TaskDbContext();

@@ -50,6 +50,8 @@ namespace ItStepTask.Web.Mapping
                 .ForMember(dest => dest.Image,
                     opt => opt.MapFrom(src => src.Image != null ? Convert.ToBase64String(src.Image) : null));
 
+            CreateMap<OrderItemViewModel, Order>();
+                
             CreateMap<CreateItemViewModel, Item>();
                 
 

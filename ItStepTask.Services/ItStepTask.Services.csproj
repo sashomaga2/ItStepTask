@@ -61,12 +61,14 @@
     <Compile Include="CategoryService.cs" />
     <Compile Include="Contracts\ICategoryService.cs" />
     <Compile Include="Contracts\IItemsService.cs" />
+    <Compile Include="Contracts\IOrdersService.cs" />
     <Compile Include="Contracts\IPostService.cs" />
     <Compile Include="Contracts\IService.cs" />
     <Compile Include="Contracts\IShoppingCartService.cs" />
     <Compile Include="Contracts\ISuppliersService.cs" />
     <Compile Include="Contracts\IUserDataService.cs" />
     <Compile Include="Contracts\IUsersService.cs" />
+    <Compile Include="OrdersService.cs" />
     <Compile Include="UserDataService.cs" />
     <Compile Include="ItemsService.cs" />
     <Compile Include="PostService.cs" />
