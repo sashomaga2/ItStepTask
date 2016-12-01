@@ -31,6 +31,10 @@
             return new TaskDbContext();
         }
 
+        //public System.Data.Entity.DbSet<ItStepTask.Web.Models.OrderItemViewModel> OrderItemViewModels { get; set; }
+
+        //public System.Data.Entity.DbSet<ItStepTask.Web.Models.OrderItemViewModel> OrderItemViewModels { get; set; }
+
         //public System.Data.Entity.DbSet<ItStepTask.Web.Models.ItemViewModel> ItemViewModels { get; set; }
     }
 }

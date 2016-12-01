@@ -1,5 +1,23 @@
-﻿
-<h2></h2>
+﻿@model ItStepTask.Web.Models.HomeViewModel
+
+<div class="navbar navbar-inverse" style="margin-top: 20px">
+    <div class="container">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    @Html.Partial("../Shared/_Categories")
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    @Html.Partial("../Shared/_ShoppingCartPartual")
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="grid"></div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/custom")

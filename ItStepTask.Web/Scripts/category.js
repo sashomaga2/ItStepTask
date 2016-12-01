@@ -1,6 +1,6 @@
 ﻿$(function () {
     var ajaxCategoryChange = function () {
-        var url = "shop/CategoryChange";
+        var url = "/shop/CategoryChange";
 
         console.log("this", $(this).val());
 

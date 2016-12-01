@@ -10,7 +10,7 @@ namespace ItStepTask.Services
 {
     public interface IShopService
     {
-        int GetSelectedCategory(string userId);
+        int GetSelectedCategory();
         IEnumerable<Item> GetItems(int categoryId);
         int GetShoppingCartItemsCount(string userId);
         void SetUserSelectedCategory(string userId, int categoryId);
@@ -40,24 +40,29 @@ namespace ItStepTask.Services
             return itemsService.GetAll().Where(i => i.Category.Id == categoryId).ToArray();
         }
 
-        public int GetSelectedCategory(string userId)
+        public int GetSelectedCategory()
         {
+            
+
+
             var firstCategoryId = categoryService.GetAll().First().Id;
 
-            if (userId == null)
-            {
-                return firstCategoryId;
-            }
+            return 0;
 
-            var userData = userDataService.GetAll().FirstOrDefault(d => d.User.Id == userId);
+            //if (userId == null)
+            //{
+            //    return firstCategoryId;
+            //}
 
-            if(userData == null)
-            {
-                SetUserSelectedCategory(userId, firstCategoryId);
-                return firstCategoryId;
-            }
+            //var userData = userDataService.GetAll().FirstOrDefault(d => d.User.Id == userId);
 
-            return userData.SelectedCategory.Id;
+            //if(userData == null)
+            //{
+            //    SetUserSelectedCategory(userId, firstCategoryId);
+            //    return firstCategoryId;
+            //}
+
+            //return userData.SelectedCategory.Id;
         }
 
         public void SetUserSelectedCategory(string userId, int categoryId)

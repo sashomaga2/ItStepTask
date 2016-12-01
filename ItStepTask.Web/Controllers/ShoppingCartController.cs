@@ -1,5 +1,6 @@
 ﻿using ItStepTask.Entity;
 using ItStepTask.Services.Contracts;
+using ItStepTask.Web.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Web.Routing;
 
 namespace ItStepTask.Web.Controllers
 {
+    [Authorize]
     public class ShoppingCartController : BaseController
     {
         private readonly IShoppingCartService shoppingCartService;
@@ -23,12 +25,54 @@ namespace ItStepTask.Web.Controllers
         }
 
         // GET: ShoppingCart
-        public ActionResult Index()
+        public ActionResult Index(string itemToDeleteId)
         {
-            return View();
+
+
+            if(Session["ShoppingCartItems"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var shoppingCartItems = (HashSet<int>)Session["ShoppingCartItems"];
+
+            if(shoppingCartItems.Count == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var items = shoppingCartItems.Select(id =>
+            {
+                var item = itemsService.Find(id);
+                return Mapper.Map<OrderItemViewModel>(item);
+            }).ToList();
+
+            return View(items);
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(int? itemId)
+        {
+            if (itemId == null)
+            {
+                return Json(new { success = false });
+            }
+
+            var item = itemsService.Find(itemId);
+
+            if (item == null)
+            {
+                return Json(new { success = false });
+            }
+
+            var shopItemsList = (HashSet<int>)Session["ShoppingCartItems"];
+            shopItemsList.Remove(itemId.Value);
+
+            return Json(new { success = true });
         }
 
         [HttpPut]
+        [AllowAnonymous]
         public ActionResult Put(int id)
         {
             var item = itemsService.Find(id);
@@ -38,19 +82,19 @@ namespace ItStepTask.Web.Controllers
                 return Json(new { success = false });
             }
 
-            var userId = User.Identity.GetUserId();
-
-            if (userId == null)
+            if(Session["ShoppingCartItems"] == null)
             {
-                return Json(new { success = false });
+                Session["ShoppingCartItems"] = new HashSet<int>();
             }
 
-            if(shoppingCartService.GetAll().Any(c => c.User.Id == userId && c.Item.Id == id))
+            var shopItemsList = (HashSet<int>)Session["ShoppingCartItems"];
+
+            if (shopItemsList.Any(sId => sId == id))
             {
                 return Json(new { success = false, message = "Already added!" });
             }
 
-            shoppingCartService.Add(new ShoppingCart { Item = item, User = usersService.Find(userId) });
+            shopItemsList.Add(id);
 
             return Json(new { success = true });
         }

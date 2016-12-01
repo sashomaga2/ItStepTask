@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItStepTask.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,10 +10,10 @@ namespace ItStepTask.Web.Controllers
     public class OrderController : BaseController
     {
         
-        [HttpPut]
-        public ActionResult Place(int? itemId)
+        [HttpPost]
+        public ActionResult Place(IEnumerable<OrderItemViewModel> items)
         {
-            if(itemId == null)
+            if(items == null)
             {
                 return HttpNotFound();
             }

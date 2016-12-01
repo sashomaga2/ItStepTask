@@ -35,31 +35,45 @@ namespace ItStepTask.Web.Controllers
             this.categoryService = categoryService;
         }
 
-        private int GetSelectedCategoryId(string userId)
+        #region Private
+        private int GetSelectedCategoryId()
         {
-            if(Session["categoryId"] == null)
+            if (Session["categoryId"] == null)
             {
-                Session["categoryId"] = shopService.GetSelectedCategory(userId);
+                Session["categoryId"] = categoryService.GetAll().First().Id;
             }
 
             return (int)Session["categoryId"];
         }
 
+        private int GetShoppingCartItemsCount()
+        {
+            if (Session["ShoppingCartItems"] == null)
+            {
+                return 0;
+            }
+
+            return ((HashSet<int>)Session["ShoppingCartItems"]).Count;
+        }
+
+        #endregion
+
         public ActionResult Index()
         {
-            var userId = User.Identity.GetUserId();
-            int categoryId = GetSelectedCategoryId(userId);
+            var categoryId = GetSelectedCategoryId();
 
             var model = new HomeViewModel
             {
                 SelectedCategoryId = categoryId,
                 Items = Mapper.Map<IEnumerable<Item>, IEnumerable<ItemViewModel>>(shopService.GetItems(categoryId)),
-                ShoppingCartItemsCount = shopService.GetShoppingCartItemsCount(userId),
+                ShoppingCartItemsCount = GetShoppingCartItemsCount(),
                 Categories = Mapper.Map<IEnumerable<Category>, IEnumerable<SelectListItem>>(categoryService.GetAll())
             };
 
             return View(model);
         }
+
+        
 
         public ActionResult About()
         {

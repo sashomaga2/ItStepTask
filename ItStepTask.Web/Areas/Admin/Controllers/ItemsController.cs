@@ -62,10 +62,13 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
                 return View(model);
             }
 
-            using (var ms = new MemoryStream())
+            if (ImageFile != null)
             {
-                ImageFile.InputStream.CopyTo(ms);
-                model.Image = ms.ToArray();
+                using (var ms = new MemoryStream())
+                {
+                    ImageFile.InputStream.CopyTo(ms);
+                    model.Image = ms.ToArray();
+                }
             }
 
             var item = Mapper.Map<Item>(model);

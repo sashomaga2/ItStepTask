@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ItStepTask.Web.Models
 {
-    public class ItemViewModel
+    public class OrderItemViewModel : LayoutViewModel
     {
         [Key]
         public int Id { get; set; }
@@ -15,6 +15,8 @@ namespace ItStepTask.Web.Models
         public decimal Price { get; set; }
 
         public int Quantity { get; set; }
+
+        public int OrderAmount { get; set; }
 
         public string Image { get; set; }
     }

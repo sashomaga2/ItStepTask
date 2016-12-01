@@ -1,7 +1,101 @@
-﻿
+﻿@model IList<ItStepTask.Web.Models.OrderItemViewModel>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Shopping cart Index</h2>
+<h2>Index</h2>
 
+@using (Html.BeginForm("Place", "Order", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].OrderAmount)
+            </th>
+            <th></th>
+        </tr>
+
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                @Html.HiddenFor(modelItem => Model[i].Id)
+                <td>
+                    @{
+                        var imgSrc = String.Format("data:image/png;base64,{0}", Model[i].Image);
+                    }
+
+                    <img src="@imgSrc" class="item-image" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].Name)
+                </td>
+                <td class="item-price">
+                    @Html.DisplayFor(modelItem => Model[i].Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].Quantity)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => Model[i].OrderAmount, new { htmlAttributes = new { min = 0, max = Model[i].Quantity, @class = "form-control order-amount",  } })
+                </td>
+                <td>
+                    <input type="button" class="shopping-cart-delete btn btn-danger" value="Delete" /> 
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <div class="container pull-right">
+        Total Amount:
+        <span id="shoppingCartTotalSum" class="badge">0</span>
+        <input type="submit"  id="shoppingCartPlaceOrder" class="btn btn-success" />
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/shoppingCart")
+}
+
+    @*@using (Ajax.BeginForm("AddCommentAjax", "Post", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "commentsArea" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Add comment</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @Html.HiddenFor(model => model.PostId)
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+
+            </div>
+        }*@
