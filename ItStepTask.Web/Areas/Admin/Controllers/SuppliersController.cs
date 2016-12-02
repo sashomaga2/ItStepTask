@@ -26,8 +26,21 @@ namespace ItStepTask.Web.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
+            List<Supplier> suppliersDb;
+            try
+            {
+                suppliersDb = suppliersService.GetAll().ToList();
+            }
+            catch (Exception err)
+            {
+                //TODO log 
+                Console.WriteLine(err.Message);
+                return new HttpStatusCodeResult(404, "Error in Db");
+            }
+
             var suppliers = Mapper.Map<ICollection<Supplier>,
-                ICollection<SupplierViewModel>>(suppliersService.GetAll().ToList());
+                ICollection<SupplierViewModel>>(suppliersDb);
+
 
             return View(suppliers);
         }

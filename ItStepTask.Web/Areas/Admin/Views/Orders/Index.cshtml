@@ -1,0 +1,41 @@
+﻿@model IList<ItStepTask.Web.Areas.Admin.ViewModels.OrderViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Orders</h2>
+
+<div id="editForm">
+    @Html.Partial("_EditOrders", Model);
+</div>
+
+@section Scripts {
+    <script>
+        var FUNC = {};
+        $(function () {
+            var $submitBtn = $('#orderStatusEdit');
+
+            function hasChange() {
+                return $('.order-status').toArray().some(function (input) {
+                    console.log("order-status", input.value);
+                    console.log("order-last-selected", $(input).closest('tr').children('.order-last-selected').val());
+                    return input.value !== $(input).closest('tr').children('.order-last-selected').val();
+                });
+            }
+
+            var handleOrderStatusChange = function (e) {
+                $submitBtn.prop('disabled', !hasChange());
+                return false;
+            }
+
+            FUNK.handleOrderStatusChange = handleOrderStatusChange;
+            FUNK.hasChange = hasChange;
+
+            $submitBtn.prop('disabled', true);
+            $('.order-status').on('change', handleOrderStatusChange);
+        });
+
+
+    </script>
+}

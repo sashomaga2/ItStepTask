@@ -1,12 +1,20 @@
 ﻿
-<h2>Manage:</h2>
 
-@Html.ActionLink("Categories", "Index", "Categories", new { Area = "Admin" }, new{})
 
-<br />
-
-@Html.ActionLink("Suppliers", "Index", "Suppliers", new { Area = "Admin" }, new {})
-
-<br />
-
-@Html.ActionLink("Items", "Index", "Items", new { Area = "Admin" }, new { })
+<ul class="list-group" style="margin-top: 20px">
+    <li class="list-group-item active">
+        <h2>Manage:</h2>
+    </li>
+    <li class="list-group-item">
+        @Html.ActionLink("Categories", "Index", "Categories", new { Area = "Admin" }, new { })
+    </li>
+    <li class="list-group-item">
+        @Html.ActionLink("Suppliers", "Index", "Suppliers", new { Area = "Admin" }, new { })
+    </li>
+    <li class="list-group-item">
+        @Html.ActionLink("Items", "Index", "Items", new { Area = "Admin" }, new { })
+    </li>
+    <li class="list-group-item">
+        @Html.ActionLink("Orders", "Index", "Orders", new { Area = "Admin" }, new { })
+    </li>
+</ul>

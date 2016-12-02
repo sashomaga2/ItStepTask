@@ -50,10 +50,44 @@ namespace ItStepTask.Web.Mapping
                 .ForMember(dest => dest.Image,
                     opt => opt.MapFrom(src => src.Image != null ? Convert.ToBase64String(src.Image) : null));
 
-            CreateMap<OrderItemViewModel, Order>();
-                
+            CreateMap<OrderItemViewModel, Order>()
+                .ForMember(dest => dest.StatusId,
+                    opt => opt.MapFrom(src => (int)OrderStatus.New));
+
             CreateMap<CreateItemViewModel, Item>();
-                
+
+            var OrderStatusSelectListItems = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList();
+
+            CreateMap<Order, OrderViewModel>()
+                .ForMember(dest => dest.CustomerEmail,
+                    opt => opt.MapFrom(src => src.User.Email))
+                .ForMember(dest => dest.CustomerNumber,
+                    opt => opt.MapFrom(src => src.User.PhoneNumber))
+                .ForMember(dest => dest.Image,
+                    opt => opt.MapFrom(src => src.Item.Image != null ? Convert.ToBase64String(src.Item.Image) : null))
+                .ForMember(dest => dest.Name,
+                    opt => opt.MapFrom(src => src.Item.Name))
+                .ForMember(dest => dest.OrderAmount,
+                    opt => opt.MapFrom(src => src.OrderAmount))
+                .ForMember(dest => dest.Price,
+                    opt => opt.MapFrom(src => src.Item.Price))
+                .ForMember(dest => dest.Quantity,
+                    opt => opt.MapFrom(src => src.Item.Quantity))
+                .ForMember(dest => dest.Total,
+                    opt => opt.MapFrom(src => src.OrderAmount * src.Item.Price))
+                //.ForMember(dest => dest.StatusSelectListItems,
+                //    opt => opt.MapFrom(src => OrderStatusSelectListItems))
+                .ForMember(dest => dest.LastStatusSelected,
+                    opt => opt.MapFrom(src => (int)src.StatusId))
+                .ForMember(dest => dest.StatusId,
+                    opt => opt.MapFrom(src => (OrderStatus)src.StatusId));
+            //StatusId
+            //LastStatusSelected
+
 
             //.ForMember(dest => dest.CategoriesSelectListItems,
             //        src => src.ResolveUsing((item, orderDto, i, context) => 
@@ -63,8 +97,6 @@ namespace ItStepTask.Web.Mapping
             CreateMap<ItemViewModel, Item>();
 
             //.IgnoreUnmapped()
-
-            
 
             CreateMap<Supplier, SupplierViewModel>();
             CreateMap<SupplierViewModel, Supplier>();

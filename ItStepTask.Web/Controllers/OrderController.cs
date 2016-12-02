@@ -39,13 +39,20 @@ namespace ItStepTask.Web.Controllers
 
             foreach (var orderItem in orderItems)
             {
+                if (orderItem.OrderAmount == 0)
+                {
+                    continue;
+                }
                 var item = itemsService.Find(orderItem.Id);
                 item.Quantity = item.Quantity - orderItem.OrderAmount;
 
                 try
                 {
                     itemsService.Update(item);
-                    ordersService.Add(new Order { User = user, Quantity = orderItem.OrderAmount, StatusId = (int)OrderStatus.New, Item = item });
+                    var order = Mapper.Map<Order>(orderItem);
+                    order.User = user;
+                    order.Item = item;
+                    ordersService.Add(order);
                 }
                 catch (Exception err)
                 {

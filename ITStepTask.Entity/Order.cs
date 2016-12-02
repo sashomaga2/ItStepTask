@@ -10,11 +10,11 @@ namespace ItStepTask.Entity
     public enum OrderStatus { New, Hold, Shipped, Delivered, Closed }
     public class Order : BaseModel
     {
-        public Item Item { get; set; }
+        public virtual Item Item { get; set; }
 
-        public int Quantity { get; set; }
-
-        public ApplicationUser User { get; set; }
+        public int OrderAmount { get; set; }
+ 
+        public virtual ApplicationUser User { get; set; }
 
         //public int StatusId { get; set; }
 

@@ -41,13 +41,23 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
 
         public ActionResult Create()
         {
-            var cats = categoryService.GetAll().ToArray();
-            var suppliers = suppliersService.GetAll().ToArray();
-            var model = new CreateItemViewModel
+            CreateItemViewModel model;
+            try
             {
-                CategoriesSelectListItems = Mapper.Map<ICollection<Category>, ICollection<SelectListItem>>(cats),
-                SuppliersSelectListItems = Mapper.Map<ICollection<Supplier>, ICollection<SelectListItem>>(suppliers)
-            };
+                var cats = categoryService.GetAll().ToArray();
+                var suppliers = suppliersService.GetAll().ToArray();
+                model = new CreateItemViewModel
+                {
+                    CategoriesSelectListItems = Mapper.Map<ICollection<Category>, ICollection<SelectListItem>>(cats),
+                    SuppliersSelectListItems = Mapper.Map<ICollection<Supplier>, ICollection<SelectListItem>>(suppliers)
+                };
+            }
+            catch (Exception err)
+            {
+                //TODO log 
+                Console.WriteLine(err.Message);
+                return new HttpStatusCodeResult(404, "Error in Db");
+            }
 
             return View(model);
         }

@@ -33,8 +33,6 @@ $(function () {
     function calculateTotalSum() {
         var total = 0;
         $('.order-amount').toArray().forEach(function (input) {
-            console.log("input", input);
-            console.log("this", this);
             var amount = Number(input.value);
             if (amount) {
                 total += parseFloat($(input).closest('tr').children('.item-price').text()) * amount;
