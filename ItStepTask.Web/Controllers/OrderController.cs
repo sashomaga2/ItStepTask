@@ -32,7 +32,7 @@ namespace ItStepTask.Web.Controllers
         {
             if(orderItems == null)
             {
-                return HttpNotFound();
+                return new HttpNotFoundResult();
             }
 
             var user = usersService.Find(User.Identity.GetUserId());

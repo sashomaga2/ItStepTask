@@ -16,7 +16,6 @@ namespace ItStepTask.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly IPostService postsService;
         private readonly IShoppingCartService shoppingCartService;
         private readonly IShopService shopService;
         private readonly ICategoryService categoryService;
@@ -24,12 +23,11 @@ namespace ItStepTask.Web.Controllers
         // TODO remove
         //private TaskDbContext db = new TaskDbContext();
 
-        public HomeController(  IPostService postsService, 
+        public HomeController( 
                                 IShoppingCartService shoppingCartService, 
                                 IShopService shopService,
                                 ICategoryService categoryService)
         {
-            this.postsService = postsService;
             this.shoppingCartService = shoppingCartService;
             this.shopService = shopService;
             this.categoryService = categoryService;
@@ -73,20 +71,5 @@ namespace ItStepTask.Web.Controllers
             return View(model);
         }
 
-        
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
