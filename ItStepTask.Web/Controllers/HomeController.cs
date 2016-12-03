@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using ItStepTask.Common.Caching;
 using ItStepTask.Data;
 using ItStepTask.Entity;
 using ItStepTask.Services;
@@ -19,29 +20,37 @@ namespace ItStepTask.Web.Controllers
         private readonly IShoppingCartService shoppingCartService;
         private readonly IShopService shopService;
         private readonly ICategoryService categoryService;
+        private readonly ICacheService cacheService;
 
         // TODO remove
         //private TaskDbContext db = new TaskDbContext();
 
-        public HomeController( 
+        public HomeController(  ICacheService cacheService,
                                 IShoppingCartService shoppingCartService, 
                                 IShopService shopService,
                                 ICategoryService categoryService)
         {
+            this.cacheService = cacheService;
             this.shoppingCartService = shoppingCartService;
             this.shopService = shopService;
             this.categoryService = categoryService;
         }
 
         #region Private
-        private int GetSelectedCategoryId()
+        private Category GetSelectedCategory()
         {
+            Category category;
             if (Session["categoryId"] == null)
             {
-                Session["categoryId"] = categoryService.GetAll().First().Id;
+                category = categoryService.GetAll().First();
+                Session["categoryId"] = category.Id;
+            }
+            else
+            {
+                category = categoryService.Find((int)Session["categoryId"]);
             }
 
-            return (int)Session["categoryId"];
+            return category;
         }
 
         private int GetShoppingCartItemsCount()
@@ -58,12 +67,17 @@ namespace ItStepTask.Web.Controllers
 
         public ActionResult Index()
         {
-            var categoryId = GetSelectedCategoryId();
+            var category = GetSelectedCategory();
+
+            var items = cacheService.Get<IEnumerable<Item>>(category.Name, () =>
+            {
+                return shopService.GetItems(category.Id);
+            }, 60);
 
             var model = new HomeViewModel
             {
-                SelectedCategoryId = categoryId,
-                Items = Mapper.Map<IEnumerable<Item>, IEnumerable<ItemViewModel>>(shopService.GetItems(categoryId)),
+                SelectedCategoryId = category.Id,
+                Items = Mapper.Map<IEnumerable<Item>, IEnumerable<ItemViewModel>>(items),
                 ShoppingCartItemsCount = GetShoppingCartItemsCount(),
                 Categories = Mapper.Map<IEnumerable<Category>, IEnumerable<SelectListItem>>(categoryService.GetAll())
             };

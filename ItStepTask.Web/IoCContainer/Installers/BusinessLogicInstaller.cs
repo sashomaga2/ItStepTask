@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ItStepTask.Common.Caching;
 using ItStepTask.Data;
 using ItStepTask.Services;
 using ItStepTask.Services.Contracts;
@@ -25,6 +26,7 @@ namespace ItStepTask.Web.IoCContainer.Installers
             container.Register(Component.For<IUsersService>().ImplementedBy<UsersService>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IUserDataService>().ImplementedBy<UserDataService>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IOrdersService>().ImplementedBy<OrdersService>().LifeStyle.PerWebRequest);
+            container.Register(Component.For<ICacheService>().ImplementedBy<HttpCacheService>().LifeStyle.PerWebRequest);
             
         }
     }
