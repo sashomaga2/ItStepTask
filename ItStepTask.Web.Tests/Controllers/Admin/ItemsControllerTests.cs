@@ -18,19 +18,36 @@ namespace ItStepTask.Web.Tests.Controllers.Admin
     [TestFixture]
     public class ItemsControllerTests
     {
+        private ItemsController controller;
+        private Mock<IItemsService> itemsService;
+        private Mock<ICategoryService> categoryService;
+        private Mock<ISuppliersService> suppliersService;
+        private IMapper mapper;
+
+        [SetUp]
+        public void Init()
+        {
+            itemsService = new Mock<IItemsService>();
+            categoryService = new Mock<ICategoryService>();
+            suppliersService = new Mock<ISuppliersService>();
+            AutoMapperConfiguration.Configure();
+            mapper = AutoMapperConfiguration.Config.CreateMapper();
+
+            controller = new ItemsController(mapper, itemsService.Object, categoryService.Object, suppliersService.Object);
+        }
+
+        [TearDown]
+        public void Dispose()
+        {
+            controller.Dispose();
+        }
+
         [Test]
         public void Create_ErrorShouldReturnHttpStatusCodeResult()
         {
             // Arrange
-            var itemsService = new Mock<IItemsService>();
-            var categoryService = new Mock<ICategoryService>();
-            var suppliersService = new Mock<ISuppliersService>();
-            var mapper = new Mock<IMapper>();
-
             categoryService.Setup(x => x.GetAll()).Throws<Exception>();
             
-            var controller = new ItemsController(mapper.Object, itemsService.Object, categoryService.Object, suppliersService.Object);
-
             // Act
             var result = controller.Create() as HttpStatusCodeResult;
 
@@ -44,18 +61,9 @@ namespace ItStepTask.Web.Tests.Controllers.Admin
         public void Index_ShouldReturnView()
         {
             // Arrange
-            var itemsService = new Mock<IItemsService>();
-            var categoryService = new Mock<ICategoryService>();
-            var suppliersService = new Mock<ISuppliersService>();
-
-            AutoMapperConfiguration.Configure();
-            var mapper = AutoMapperConfiguration.Config.CreateMapper();
-
             var data = new List<Item> {new Item { Name = "Pesho" }, new Item { Name = "Cholate" } };
 
             itemsService.Setup(x => x.GetAll()).Returns(data.AsQueryable());
-
-            var controller = new ItemsController(mapper, itemsService.Object, categoryService.Object, suppliersService.Object);
 
             // Act
             var result = controller.Create() as ViewResult;
@@ -68,16 +76,6 @@ namespace ItStepTask.Web.Tests.Controllers.Admin
         [Test]
         public void Edit_WithNullId_ShouldReturnHttpStatusCodeResult()
         {
-            // Arrange
-            var itemsService = new Mock<IItemsService>();
-            var categoryService = new Mock<ICategoryService>();
-            var suppliersService = new Mock<ISuppliersService>();
-
-            AutoMapperConfiguration.Configure();
-            var mapper = AutoMapperConfiguration.Config.CreateMapper();
-
-            var controller = new ItemsController(mapper, itemsService.Object, categoryService.Object, suppliersService.Object);
-
             // Act
             var result = controller.Edit(id: null) as HttpStatusCodeResult;
 
@@ -90,17 +88,9 @@ namespace ItStepTask.Web.Tests.Controllers.Admin
         public void Edit_WithNullItem_ShouldReturnHttpNotFoundResult()
         {
             // Arrange
-            var itemsService = new Mock<IItemsService>();
-            var categoryService = new Mock<ICategoryService>();
-            var suppliersService = new Mock<ISuppliersService>();
             var itemId = 3;
 
             itemsService.Setup(x => x.Find(itemId)).Returns(() => null);
-
-            AutoMapperConfiguration.Configure();
-            var mapper = AutoMapperConfiguration.Config.CreateMapper();
-
-            var controller = new ItemsController(mapper, itemsService.Object, categoryService.Object, suppliersService.Object);
 
             // Act
             var result = controller.Edit(id: itemId) as HttpNotFoundResult;
@@ -108,6 +98,31 @@ namespace ItStepTask.Web.Tests.Controllers.Admin
             // Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOf(typeof(HttpNotFoundResult), result);
+        }
+
+        [Test]
+        public void Delete_WithNullItem_ShouldReturnHttpStatusCodeResult()
+        {
+            // Act
+            var result = controller.Delete(id: null) as HttpStatusCodeResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf(typeof(HttpStatusCodeResult), result);
+        }
+
+        [Test]
+        public void Delete_ItemServiceException_ShouldReturnHttpStatusCodeResult()
+        {
+            //Arrange
+            itemsService.Setup(x => x.GetAll()).Throws<Exception>();
+
+            // Act
+            var result = controller.Delete(id: null) as HttpStatusCodeResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf(typeof(HttpStatusCodeResult), result);
         }
     }
 }

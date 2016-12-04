@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Admin\ItemsControllerTests.cs" />
+    <Compile Include="Controllers\ShopControllerTests.cs" />
     <Compile Include="MvcMockHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\OrderControllerTests.cs" />

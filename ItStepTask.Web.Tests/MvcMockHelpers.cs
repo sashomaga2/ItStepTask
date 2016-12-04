@@ -31,13 +31,13 @@ namespace ItStepTask.Web.Tests
             var context = new Mock<HttpContextBase>();
             var request = new Mock<HttpRequestBase>();
             var response = new Mock<HttpResponseBase>();
-            var session = new Mock<MockHttpSession>();
+            var session = new MockHttpSession();
             var server = new Mock<HttpServerUtilityBase>();
 
-            context.Expect(ctx => ctx.Request).Returns(request.Object);
-            context.Expect(ctx => ctx.Response).Returns(response.Object);
-            context.Expect(ctx => ctx.Session).Returns(session.Object);
-            context.Expect(ctx => ctx.Server).Returns(server.Object);
+            context.Setup(ctx => ctx.Request).Returns(request.Object);
+            context.Setup(ctx => ctx.Response).Returns(response.Object);
+            context.Setup(ctx => ctx.Session).Returns(session);
+            context.Setup(ctx => ctx.Server).Returns(server.Object);
 
             return context.Object;
         }

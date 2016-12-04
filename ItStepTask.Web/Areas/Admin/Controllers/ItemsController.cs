@@ -132,7 +132,16 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
                 return View(model);
             }
 
-            itemsService.Update(mapper.Map<Item>(model));
+            try
+            {
+                itemsService.Update(mapper.Map<Item>(model));
+            }
+            catch (Exception err)
+            {
+                //TODO log 
+                Console.WriteLine(err.Message);
+                return new HttpStatusCodeResult(404, "Error in Db");
+            }
 
             return RedirectToAction("Index");
         }
@@ -150,7 +159,18 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
                 return HttpNotFound();
             }
 
-            itemsService.Delete(id);
+            try
+            {
+                itemsService.Delete(id);
+            }
+            catch (Exception err)
+            {
+                //TODO log 
+                Console.WriteLine(err.Message);
+                return new HttpStatusCodeResult(404, "Error in Db");
+            }
+
+
 
             return RedirectToAction("Index");
         }

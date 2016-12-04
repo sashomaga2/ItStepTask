@@ -17,27 +17,6 @@ namespace ItStepTask.Web.Controllers
             this.shopService = shopService;
         }
 
-        //[HttpPost]
-        //public ActionResult CategoryChange(int? categoryId)
-        //{
-        //    if(categoryId == null)
-        //    {
-        //        return Json(new { success = false, responseText = "Category can't be null!" }, JsonRequestBehavior.AllowGet);
-        //    }
-
-        //    var userId = User.Identity.GetUserId();
-        //    if (userId != null)
-        //    {
-        //        shopService.SetUserSelectedCategory(userId, categoryId.Value);
-        //    }
-
-        //    Session["categoryId"] = categoryId.Value;
-
-        //    //return JavaScript("location.reload(true)");
-
-        //    return Json(new { success = true, responseText = "Category successfuly sent!" }, JsonRequestBehavior.AllowGet);
-        //}
-
         [HttpPost]
         public ActionResult CategoryChange(int? categoryId)
         {
