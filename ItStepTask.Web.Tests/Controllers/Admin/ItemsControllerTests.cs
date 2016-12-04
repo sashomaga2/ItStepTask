@@ -9,7 +9,6 @@ using ItStepTask.Entity;
 using ItStepTask.Services.Contracts;
 using ItStepTask.Web.Areas.Admin.Controllers;
 using ItStepTask.Web.Areas.Admin.ViewModels;
-using ItStepTask.Web.Controllers;
 using ItStepTask.Web.Mapping;
 using Moq;
 using NUnit.Framework;
@@ -64,6 +63,51 @@ namespace ItStepTask.Web.Tests.Controllers.Admin
             // Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOf(typeof(ViewResult), result);
+        }
+
+        [Test]
+        public void Edit_WithNullId_ShouldReturnHttpStatusCodeResult()
+        {
+            // Arrange
+            var itemsService = new Mock<IItemsService>();
+            var categoryService = new Mock<ICategoryService>();
+            var suppliersService = new Mock<ISuppliersService>();
+
+            AutoMapperConfiguration.Configure();
+            var mapper = AutoMapperConfiguration.Config.CreateMapper();
+
+            var controller = new ItemsController(mapper, itemsService.Object, categoryService.Object, suppliersService.Object);
+
+            // Act
+            var result = controller.Edit(id: null) as HttpStatusCodeResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf(typeof(HttpStatusCodeResult), result);
+        }
+
+        [Test]
+        public void Edit_WithNullItem_ShouldReturnHttpNotFoundResult()
+        {
+            // Arrange
+            var itemsService = new Mock<IItemsService>();
+            var categoryService = new Mock<ICategoryService>();
+            var suppliersService = new Mock<ISuppliersService>();
+            var itemId = 3;
+
+            itemsService.Setup(x => x.Find(itemId)).Returns(() => null);
+
+            AutoMapperConfiguration.Configure();
+            var mapper = AutoMapperConfiguration.Config.CreateMapper();
+
+            var controller = new ItemsController(mapper, itemsService.Object, categoryService.Object, suppliersService.Object);
+
+            // Act
+            var result = controller.Edit(id: itemId) as HttpNotFoundResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf(typeof(HttpNotFoundResult), result);
         }
     }
 }
