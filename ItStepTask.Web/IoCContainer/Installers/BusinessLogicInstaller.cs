@@ -5,10 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AutoMapper;
 using ItStepTask.Common.Caching;
 using ItStepTask.Data;
 using ItStepTask.Services;
 using ItStepTask.Services.Contracts;
+using ItStepTask.Web.Mapping;
 
 namespace ItStepTask.Web.IoCContainer.Installers
 {
@@ -27,7 +29,9 @@ namespace ItStepTask.Web.IoCContainer.Installers
             container.Register(Component.For<IUserDataService>().ImplementedBy<UserDataService>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IOrdersService>().ImplementedBy<OrdersService>().LifeStyle.PerWebRequest);
             container.Register(Component.For<ICacheService>().ImplementedBy<HttpCacheService>().LifeStyle.PerWebRequest);
-            
+            container.Register(
+                Component.For<IMapper>().UsingFactoryMethod(() => AutoMapperConfiguration.Config.CreateMapper()));
+
         }
     }
 }

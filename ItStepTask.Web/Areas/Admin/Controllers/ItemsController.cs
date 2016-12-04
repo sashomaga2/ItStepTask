@@ -12,20 +12,24 @@ using ItStepTask.Services.Contracts;
 using ItStepTask.Web.Controllers;
 using ItStepTask.Entity;
 using System.IO;
+using AutoMapper;
 
 namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
 {
     [Authorize(Roles = "Admin")]
-    public class ItemsController : BaseController
+    public class ItemsController : Controller
     {
+        private readonly IMapper mapper;
         private readonly IItemsService itemsService;
         private readonly ICategoryService categoryService;
         private readonly ISuppliersService suppliersService;
 
-        public ItemsController(IItemsService itemsService,
+        public ItemsController(IMapper mapper,
+                               IItemsService itemsService,
                                ICategoryService categoryService,
                                ISuppliersService suppliersService)
         {
+            this.mapper = mapper;
             this.itemsService = itemsService;
             this.categoryService = categoryService;
             this.suppliersService = suppliersService;
@@ -33,7 +37,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
 
         public ActionResult Index()
         {
-            var items = Mapper.Map<ICollection<Item>,
+            var items = mapper.Map<ICollection<Item>,
                 ICollection<ItemAdminViewModel>>(itemsService.GetAll().ToList());
 
             return View(items);
@@ -48,8 +52,8 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
                 var suppliers = suppliersService.GetAll().ToArray();
                 model = new CreateItemViewModel
                 {
-                    CategoriesSelectListItems = Mapper.Map<ICollection<Category>, ICollection<SelectListItem>>(cats),
-                    SuppliersSelectListItems = Mapper.Map<ICollection<Supplier>, ICollection<SelectListItem>>(suppliers)
+                    CategoriesSelectListItems = mapper.Map<ICollection<Category>, ICollection<SelectListItem>>(cats),
+                    SuppliersSelectListItems = mapper.Map<ICollection<Supplier>, ICollection<SelectListItem>>(suppliers)
                 };
             }
             catch (Exception err)
@@ -81,7 +85,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
                 }
             }
 
-            var item = Mapper.Map<Item>(model);
+            var item = mapper.Map<Item>(model);
             var supplier = suppliersService.Find(model.SupplierId);
             if (supplier == null)
             {
@@ -116,7 +120,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
                 return HttpNotFound();
             }
 
-            return View(Mapper.Map<ItemAdminViewModel>(item));
+            return View(mapper.Map<ItemAdminViewModel>(item));
         }
 
         [HttpPost]
@@ -128,7 +132,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
                 return View(model);
             }
 
-            itemsService.Update(Mapper.Map<Item>(model));
+            itemsService.Update(mapper.Map<Item>(model));
 
             return RedirectToAction("Index");
         }
