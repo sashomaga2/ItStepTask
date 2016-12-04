@@ -27,6 +27,11 @@ namespace ItStepTask.Services
             base.Add(entity);
             base.SaveChanges();
         }
+
+        public IQueryable<Item> GetByCategory(int categoryId)
+        {
+            return GetAll().Where(i => i.Category.Id == categoryId);
+        }
     }
 
 }

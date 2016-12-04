@@ -18,22 +18,22 @@ namespace ItStepTask.Web.Controllers
     public class HomeController : BaseController
     {
         private readonly IShoppingCartService shoppingCartService;
-        private readonly IShopService shopService;
+        private readonly IItemsService itemsService;
         private readonly ICategoryService categoryService;
         private readonly ICacheService cacheService;
 
         // TODO remove
         //private TaskDbContext db = new TaskDbContext();
 
-        public HomeController(  ICacheService cacheService,
-                                IShoppingCartService shoppingCartService, 
-                                IShopService shopService,
-                                ICategoryService categoryService)
+        public HomeController(  IShoppingCartService shoppingCartService, 
+                                IItemsService itemsService,
+                                ICategoryService categoryService,
+                                ICacheService cacheService)
         {
-            this.cacheService = cacheService;
             this.shoppingCartService = shoppingCartService;
-            this.shopService = shopService;
+            this.itemsService = itemsService;
             this.categoryService = categoryService;
+            this.cacheService = cacheService;
         }
 
         #region Private
@@ -71,7 +71,7 @@ namespace ItStepTask.Web.Controllers
 
             var items = cacheService.Get<IEnumerable<Item>>(category.Name, () =>
             {
-                return shopService.GetItems(category.Id);
+                return itemsService.GetByCategory(category.Id).ToArray();
             }, 60);
 
             var model = new HomeViewModel

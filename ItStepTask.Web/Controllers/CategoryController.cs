@@ -8,15 +8,9 @@ using System.Web.Mvc;
 
 namespace ItStepTask.Web.Controllers
 {
-    public class ShopController : Controller
+    public class CategoryController : Controller
     {
-        private readonly IShopService shopService;
-
-        public ShopController(IShopService shopService)
-        {
-            this.shopService = shopService;
-        }
-
+        
         [HttpPost]
         public ActionResult CategoryChange(int? categoryId)
         {

@@ -1,8 +1,8 @@
 ﻿$(function () {
     var ajaxCategoryChange = function () {
-        var url = "/shop/CategoryChange";
+        var url = "/category/CategoryChange";
 
-        console.log("this", $(this).val());
+        //console.log("this", $(this).val());
 
         $.ajax({
             type: 'POST',
@@ -10,7 +10,7 @@
             dataType: 'json',
             data: { categoryId: $(this).val() },
             success: function (data) {
-                console.log("Success!!!", data);
+                //console.log("Success!!!", data);
                 $("#grid").data("kendoGrid").dataSource.read();
                 //location.reload(true);
             },

@@ -13,15 +13,13 @@ using NUnit.Framework;
 namespace ItStepTask.Web.Tests.Controllers
 {
     [TestFixture]
-    public class ShopCOntrollerTests
+    public class CategoryControllerTests
     {
         [Test]
         public void CategoryChange_ShouldReturnJsonResult()
         {
-
-            var shopService = new Mock<IShopService>();
             // Arrange
-            var controller = new ShopController(shopService.Object);
+            var controller = new CategoryController();
 
             controller.SetFakeControllerContext();
 
@@ -36,10 +34,8 @@ namespace ItStepTask.Web.Tests.Controllers
         [Test]
         public void CategoryChange_ShouldSetSessionCategoryId_Number()
         {
-
-            var shopService = new Mock<IShopService>();
             // Arrange
-            var controller = new ShopController(shopService.Object);
+            var controller = new CategoryController();
             var selectedCategory = 1;
 
             controller.SetFakeControllerContext();
@@ -54,9 +50,8 @@ namespace ItStepTask.Web.Tests.Controllers
         [Test]
         public void CategoryChange_ShouldSetSessionCategoryId_Null()
         {
-            var shopService = new Mock<IShopService>();
             // Arrange
-            var controller = new ShopController(shopService.Object);
+            var controller = new CategoryController();
             int? selectedCategory = null;
 
             controller.SetFakeControllerContext();
