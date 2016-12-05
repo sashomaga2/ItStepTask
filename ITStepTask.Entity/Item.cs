@@ -25,5 +25,7 @@ namespace ItStepTask.Entity
         public virtual Supplier Supplier { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
+
+        public virtual Discount Discount { get; set; } 
     }
 }

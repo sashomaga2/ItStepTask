@@ -60,6 +60,7 @@
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="BaseModel.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="Discount.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Post.cs" />

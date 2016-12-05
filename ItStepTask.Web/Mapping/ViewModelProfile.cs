@@ -8,6 +8,7 @@ using ItStepTask.Entity;
 using ItStepTask.Web.Models;
 using ItStepTask.Web.Areas.Admin.ViewModels;
 using System.Web.Mvc;
+using ItStepTask.Web.Areas.Managment.ViewModels;
 
 namespace ItStepTask.Web.Mapping
 {
@@ -79,12 +80,25 @@ namespace ItStepTask.Web.Mapping
                     opt => opt.MapFrom(src => src.Item.Quantity))
                 .ForMember(dest => dest.Total,
                     opt => opt.MapFrom(src => src.OrderAmount * src.Item.Price))
-                //.ForMember(dest => dest.StatusSelectListItems,
-                //    opt => opt.MapFrom(src => OrderStatusSelectListItems))
                 .ForMember(dest => dest.LastStatusSelected,
                     opt => opt.MapFrom(src => (int)src.StatusId))
                 .ForMember(dest => dest.StatusId,
                     opt => opt.MapFrom(src => (OrderStatus)src.StatusId));
+
+            //ItemManagmentViewModel
+            CreateMap<Item, ItemManagmentViewModel>()
+                .ForMember(dest => dest.Image,
+                    opt => opt.MapFrom(src => src.Image != null ? Convert.ToBase64String(src.Image) : null))
+                .ForMember(dest => dest.CategoryName,
+                    opt => opt.MapFrom(src => src.Category.Name))
+                .ForMember(dest => dest.SupplierName,
+                    opt => opt.MapFrom(src => src.Supplier.Name))
+                .ForMember(dest => dest.Discount,
+                    opt => opt.MapFrom(src => src.Discount == null ? 0 : src.Discount.Rate ))
+                .ForMember(dest => dest.Price,
+                    opt => opt.MapFrom(src => src.Discount == null ? src.Price : src.Price - src.Price * src.Discount.Rate));
+
+
             //StatusId
             //LastStatusSelected
 

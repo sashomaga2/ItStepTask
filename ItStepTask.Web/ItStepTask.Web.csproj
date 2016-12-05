@@ -247,9 +247,10 @@
     <Compile Include="Areas\Admin\ViewModels\ItemAdminViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\OrderViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\SupplierViewModel.cs" />
-    <Compile Include="Areas\Managment\Controllers\DiscountController.cs" />
+    <Compile Include="Areas\Managment\Controllers\DiscountsController.cs" />
     <Compile Include="Areas\Managment\Controllers\HomeController.cs" />
     <Compile Include="Areas\Managment\ManagmentAreaRegistration.cs" />
+    <Compile Include="Areas\Managment\ViewModels\ItemManagmentViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -316,6 +317,10 @@
     <Content Include="Areas\Managment\Views\web.config" />
     <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\_EditOrders.cshtml" />
+    <Content Include="Areas\Managment\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Managment\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Managment\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Managment\Views\Discounts\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\category.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -374,10 +379,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Managment\Models\" />
-    <Folder Include="Areas\Managment\Views\Discount\" />
-    <Folder Include="Areas\Managment\Views\Home\" />
-    <Folder Include="Areas\Managment\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

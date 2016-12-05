@@ -20,10 +20,7 @@ namespace ItStepTask.Web.Controllers
         private readonly IShoppingCartService shoppingCartService;
         private readonly IItemsService itemsService;
         private readonly ICategoryService categoryService;
-        private readonly ICacheService cacheService;
-
-        // TODO remove
-        //private TaskDbContext db = new TaskDbContext();
+        private readonly ICacheService cacheService;     
 
         public HomeController(  IShoppingCartService shoppingCartService, 
                                 IItemsService itemsService,

@@ -28,10 +28,13 @@
 
         public IDbSet<Order> Orders { get; set; }
 
+        public IDbSet<Discount> Discounts { get; set; }
+
         public static TaskDbContext Create()
         {
             return new TaskDbContext();
         }
 
+        //public System.Data.Entity.DbSet<ItStepTask.Web.Areas.Managment.ViewModels.ItemManagmentViewModel> ItemManagmentViewModels { get; set; }
     }
 }
