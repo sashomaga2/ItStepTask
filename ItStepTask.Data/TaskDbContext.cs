@@ -35,6 +35,8 @@
             return new TaskDbContext();
         }
 
+        //public System.Data.Entity.DbSet<ItStepTask.Web.Areas.Managment.ViewModels.EditDiscountViewModel> EditDiscountViewModels { get; set; }
+
         //public System.Data.Entity.DbSet<ItStepTask.Web.Areas.Managment.ViewModels.ItemManagmentViewModel> ItemManagmentViewModels { get; set; }
     }
 }

@@ -3,7 +3,7 @@
 
 <div class="form-group">
     @*@Html.LabelFor(model => model.SelectedCategoryId, htmlAttributes: new {@class = "control-label col-md-2"})*@
-    <div class="col-md-10">
+    <div class="col-md-10" style="margin-top: 8px;">
         @Html.DropDownListFor(model => model.SelectedCategoryId, Model.Categories, new {@class = "form-control", style = "width:100px",  id = "categoryId"})
     </div>
 </div>

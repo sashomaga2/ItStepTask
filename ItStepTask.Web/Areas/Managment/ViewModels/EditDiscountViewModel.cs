@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace ItStepTask.Web.Areas.Managment.ViewModels
 {
-    public class ItemManagmentViewModel
+    public class EditDiscountViewModel
     {
         [Key]
+        [System.Web.Mvc.HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
         public string Image { get; set; }
@@ -23,6 +25,6 @@ namespace ItStepTask.Web.Areas.Managment.ViewModels
 
         public string SupplierName { get; set; }
 
-        public string Discount { get; set; }
+        public decimal Discount { get; set; }
     }
 }

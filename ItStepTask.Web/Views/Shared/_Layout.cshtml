@@ -29,7 +29,7 @@
                 }
                 @if (User.IsInRole("Manager"))
                 {
-                    <li>@Html.ActionLink("Managment", "Index", "Home", new { Area = "Managment" }, new { })</li>
+                    <li>@Html.ActionLink("Management", "Index", "Home", new { Area = "Managment" }, new { })</li>
                 }
             </ul>
             @Html.Partial("_LoginPartial")

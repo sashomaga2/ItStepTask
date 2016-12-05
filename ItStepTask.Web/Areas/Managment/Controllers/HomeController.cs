@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace ItStepTask.Web.Areas.Managment.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class HomeController : Controller
     {
         // GET: Managment/Home

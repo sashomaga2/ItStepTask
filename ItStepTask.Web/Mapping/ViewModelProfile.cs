@@ -57,11 +57,11 @@ namespace ItStepTask.Web.Mapping
 
             CreateMap<CreateItemViewModel, Item>();
 
-            var OrderStatusSelectListItems = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>().Select(v => new SelectListItem
-            {
-                Text = v.ToString(),
-                Value = ((int)v).ToString()
-            }).ToList();
+            //var OrderStatusSelectListItems = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>().Select(v => new SelectListItem
+            //{
+            //    Text = v.ToString(),
+            //    Value = ((int)v).ToString()
+            //}).ToList();
 
             CreateMap<Order, OrderViewModel>()
                 .ForMember(dest => dest.CustomerEmail,
@@ -85,7 +85,6 @@ namespace ItStepTask.Web.Mapping
                 .ForMember(dest => dest.StatusId,
                     opt => opt.MapFrom(src => (OrderStatus)src.StatusId));
 
-            //ItemManagmentViewModel
             CreateMap<Item, ItemManagmentViewModel>()
                 .ForMember(dest => dest.Image,
                     opt => opt.MapFrom(src => src.Image != null ? Convert.ToBase64String(src.Image) : null))
@@ -94,9 +93,24 @@ namespace ItStepTask.Web.Mapping
                 .ForMember(dest => dest.SupplierName,
                     opt => opt.MapFrom(src => src.Supplier.Name))
                 .ForMember(dest => dest.Discount,
-                    opt => opt.MapFrom(src => src.Discount == null ? 0 : src.Discount.Rate ))
+                    opt => opt.MapFrom(src => src.Discount == null ? String.Format("{0:P2}", default(decimal)) : String.Format("{0:P2}", src.Discount.Rate)))
                 .ForMember(dest => dest.Price,
                     opt => opt.MapFrom(src => src.Discount == null ? src.Price : src.Price - src.Price * src.Discount.Rate));
+
+            CreateMap<Item, EditDiscountViewModel>()
+                .ForMember(dest => dest.Image,
+                    opt => opt.MapFrom(src => src.Image != null ? Convert.ToBase64String(src.Image) : null))
+                .ForMember(dest => dest.CategoryName,
+                    opt => opt.MapFrom(src => src.Category.Name))
+                .ForMember(dest => dest.SupplierName,
+                    opt => opt.MapFrom(src => src.Supplier.Name))
+                .ForMember(dest => dest.Discount,
+                    opt => opt.MapFrom(src => src.Discount == null ? default(decimal) : src.Discount.Rate))
+                .ForMember(dest => dest.Price,
+                    opt => opt.MapFrom(src => src.Discount == null ? src.Price : src.Price - src.Price * src.Discount.Rate));
+
+
+            //EditDiscountViewModel
 
 
             //StatusId
