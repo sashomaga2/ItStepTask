@@ -16,7 +16,7 @@ namespace ItStepTask.Web.Tests.Controllers
     public class OrderControllerTests
     {
         [Test]
-        public void PlaceWithNullViewModelShouldReturnHttpNotFound()
+        public void Place_WithNullViewModel_ShouldReturnHttpNotFound()
         {
 
             var ordersService = new Mock<IOrdersService>();

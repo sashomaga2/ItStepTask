@@ -35,7 +35,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers
             {
                 //TODO log 
                 Console.WriteLine(err.Message);
-                return new HttpStatusCodeResult(404, "Error in Db");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Error in Db");
             }
 
             var suppliers = Mapper.Map<ICollection<Supplier>,

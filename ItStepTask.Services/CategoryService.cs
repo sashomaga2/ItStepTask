@@ -23,10 +23,8 @@ namespace ItStepTask.Services
 
         public override void Add(Category entity)
         {
-            // TODO check if already exists
             entity.CreatedOn = DateTime.Now;
-            base.Add(entity);
-            base.SaveChanges();
+            base.Add(entity, entity.Id);
         }
 
 

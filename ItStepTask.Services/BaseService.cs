@@ -33,10 +33,25 @@ namespace ItStepTask.Services
             return this.repository.Find(id);
         }
 
+        public virtual void Add(T entity, int id)
+        {
+            if (repository.Find(id) != null)
+            {
+                repository.Update(entity);
+            }
+            else
+            {
+                repository.Add(entity);
+            }
+            
+            repository.SaveChanges();
+        }
+
         public virtual void Add(T entity)
         {
-            this.repository.Add(entity);
-            this.repository.SaveChanges();
+            
+            repository.Add(entity);
+            repository.SaveChanges();
         }
 
         public virtual void Update(T entity)

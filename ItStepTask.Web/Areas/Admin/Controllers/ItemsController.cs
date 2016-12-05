@@ -60,7 +60,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
             {
                 //TODO log 
                 Console.WriteLine(err.Message);
-                return new HttpStatusCodeResult(404, "Error in Db");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Error in Db");
             }
 
             return View(model);
@@ -76,31 +76,40 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
                 return View(model);
             }
 
-            if (ImageFile != null)
+            try
             {
-                using (var ms = new MemoryStream())
+                if (ImageFile != null)
                 {
-                    ImageFile.InputStream.CopyTo(ms);
-                    model.Image = ms.ToArray();
+                    using (var ms = new MemoryStream())
+                    {
+                        ImageFile.InputStream.CopyTo(ms);
+                        model.Image = ms.ToArray();
+                    }
                 }
-            }
 
-            var item = mapper.Map<Item>(model);
-            var supplier = suppliersService.Find(model.SupplierId);
-            if (supplier == null)
+                var item = mapper.Map<Item>(model);
+                var supplier = suppliersService.Find(model.SupplierId);
+                if (supplier == null)
+                {
+                    return HttpNotFound();
+                }
+                item.Supplier = supplier;
+
+                var category = categoryService.Find(model.CategoryId);
+                if (category == null)
+                {
+                    return HttpNotFound();
+                }
+                item.Category = category;
+
+                itemsService.Add(item);
+            }
+            catch (Exception err)
             {
-                return HttpNotFound();
+                //TODO log 
+                Console.WriteLine(err.Message);
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Error in Db");
             }
-            item.Supplier = supplier;
-
-            var category = categoryService.Find(model.CategoryId);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            item.Category = category;
-
-            itemsService.Add(item);
 
             return RedirectToAction("Index");
         }
@@ -140,7 +149,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
             {
                 //TODO log 
                 Console.WriteLine(err.Message);
-                return new HttpStatusCodeResult(404, "Error in Db");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Error in Db");
             }
 
             return RedirectToAction("Index");
@@ -167,7 +176,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
             {
                 //TODO log 
                 Console.WriteLine(err.Message);
-                return new HttpStatusCodeResult(404, "Error in Db");
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Error in Db");
             }
 
 

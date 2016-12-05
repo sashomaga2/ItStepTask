@@ -100,7 +100,9 @@
   <ItemGroup>
     <Compile Include="Controllers\Admin\ItemsControllerTests.cs" />
     <Compile Include="Controllers\CategoryControllerTests.cs" />
+    <Compile Include="Controllers\ShoppingCartControllerTests.cs" />
     <Compile Include="MvcMockHelpers.cs" />
+    <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\OrderControllerTests.cs" />
   </ItemGroup>

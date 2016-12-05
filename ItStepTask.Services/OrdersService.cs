@@ -24,8 +24,7 @@ namespace ItStepTask.Services
         public override void Add(Order entity)
         {
             entity.CreatedOn = DateTime.Now;
-            base.Add(entity);
-            base.SaveChanges();
+            base.Add(entity, entity.Id);
         }
     }
 }

@@ -24,8 +24,7 @@ namespace ItStepTask.Services.Contracts
         public override void Add(UserData entity)
         {
             entity.CreatedOn = DateTime.Now;
-            base.Add(entity);
-            base.SaveChanges();
+            base.Add(entity, entity.Id);
         }
 
     }

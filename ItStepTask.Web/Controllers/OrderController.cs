@@ -35,34 +35,35 @@ namespace ItStepTask.Web.Controllers
                 return new HttpNotFoundResult();
             }
 
-            var user = usersService.Find(User.Identity.GetUserId());
-
-            foreach (var orderItem in orderItems)
+            try
             {
-                if (orderItem.OrderAmount == 0)
-                {
-                    continue;
-                }
-                var item = itemsService.Find(orderItem.Id);
-                item.Quantity = item.Quantity - orderItem.OrderAmount;
+                var user = usersService.Find(User.Identity.GetUserId());
 
-                try
+                foreach (var orderItem in orderItems)
                 {
-                    itemsService.Update(item);
-                    var order = Mapper.Map<Order>(orderItem);
-                    order.User = user;
-                    order.Item = item;
-                    ordersService.Add(order);
+                    if (orderItem.OrderAmount == 0)
+                    {
+                        continue;
+                    }
+                    var item = itemsService.Find(orderItem.Id);
+                    item.Quantity = item.Quantity - orderItem.OrderAmount;
+
+                
+                        itemsService.Update(item);
+                        var order = Mapper.Map<Order>(orderItem);
+                        order.User = user;
+                        order.Item = item;
+                        ordersService.Add(order);
                 }
-                catch (Exception err)
-                {
-                    //TODO log 
-                    Console.WriteLine(err.Message);
-                    return new HttpStatusCodeResult(404, "Error in Db");
-                }
+
+                Session["ShoppingCartItems"] = null;
             }
-
-            Session["ShoppingCartItems"] = null;
+            catch (Exception err)
+            {
+                //TODO log 
+                Console.WriteLine(err.Message);
+                return new HttpStatusCodeResult(500, "Error in Db");
+            }
 
             return RedirectToAction("Index", "Home");
         }
