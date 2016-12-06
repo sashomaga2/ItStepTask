@@ -9,6 +9,5 @@ namespace ItStepTask.Web.Models
     public class HomeViewModel : LayoutViewModel
     {
         public ItemViewModel Item { get; set; }
-        public IEnumerable<ItemViewModel> Items { get; set; }
     }
 }

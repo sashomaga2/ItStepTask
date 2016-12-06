@@ -43,9 +43,20 @@ namespace ItStepTask.Web.Mapping
                 .ForMember(dest => dest.SupplierName,
                     opt => opt.MapFrom(src => src.Supplier.Name));
 
+            CreateMap<ItemAdminViewModel, Item>();
+            
+
             CreateMap<Item, ItemViewModel>()
                 .ForMember(dest => dest.Image,
-                    opt => opt.MapFrom(src => src.Image != null ? Convert.ToBase64String(src.Image) : null));
+                    opt => opt.MapFrom(src => src.Image != null ? Convert.ToBase64String(src.Image) : null))
+                .ForMember(dest => dest.Discount,
+                    opt => opt.MapFrom(src => src.Discount == null ? default(int) : src.Discount.Rate))
+                .ForMember(dest => dest.Price,
+                    opt => opt.MapFrom(src => (src.Discount == null || src.Discount.Rate == 0) ? $"{src.Price} lv" : 
+                            $"<p class='price-discounted'>{src.Price} lv</p><p>{src.Price - (src.Price / 100 * src.Discount.Rate)} lv</p> "));
+
+            //dataItem
+            //Discount
 
             CreateMap<Item, OrderItemViewModel>()
                 .ForMember(dest => dest.Image,
@@ -93,9 +104,9 @@ namespace ItStepTask.Web.Mapping
                 .ForMember(dest => dest.SupplierName,
                     opt => opt.MapFrom(src => src.Supplier.Name))
                 .ForMember(dest => dest.Discount,
-                    opt => opt.MapFrom(src => src.Discount == null ? String.Format("{0:P2}", default(decimal)) : String.Format("{0:P2}", src.Discount.Rate)))
+                    opt => opt.MapFrom(src => src.Discount == null ? $"{default(int)}%" : $"{src.Discount.Rate}%"))
                 .ForMember(dest => dest.Price,
-                    opt => opt.MapFrom(src => src.Discount == null ? src.Price : src.Price - src.Price * src.Discount.Rate));
+                    opt => opt.MapFrom(src => src.Discount == null ? src.Price : src.Price - (src.Price / 100 * src.Discount.Rate) ));
 
             CreateMap<Item, EditDiscountViewModel>()
                 .ForMember(dest => dest.Image,
@@ -105,9 +116,9 @@ namespace ItStepTask.Web.Mapping
                 .ForMember(dest => dest.SupplierName,
                     opt => opt.MapFrom(src => src.Supplier.Name))
                 .ForMember(dest => dest.Discount,
-                    opt => opt.MapFrom(src => src.Discount == null ? default(decimal) : src.Discount.Rate))
+                    opt => opt.MapFrom(src => src.Discount == null ? default(int) : src.Discount.Rate))
                 .ForMember(dest => dest.Price,
-                    opt => opt.MapFrom(src => src.Discount == null ? src.Price : src.Price - src.Price * src.Discount.Rate));
+                    opt => opt.MapFrom(src => src.Discount == null ? src.Price : src.Price - (src.Price / 100 * src.Discount.Rate)));
 
 
             //EditDiscountViewModel

@@ -14,7 +14,7 @@ using ItStepTask.Entity;
 using System.IO;
 using AutoMapper;
 
-namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
+namespace ItStepTask.Web.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class ItemsController : Controller
@@ -143,7 +143,12 @@ namespace ItStepTask.Web.Areas.Admin.Controllers //TODO pageing
 
             try
             {
-                itemsService.Update(mapper.Map<Item>(model));
+                var itemDb = itemsService.Find(model.Id);
+                itemDb.Name = model.Name;
+                itemDb.Price = model.Price;
+                itemDb.Quantity = model.Quantity;
+
+                itemsService.Update(itemDb);
             }
             catch (Exception err)
             {

@@ -11,6 +11,6 @@ namespace ItStepTask.Web.Models
         public int ShoppingCartItemsCount { get; set; }
 
         public IEnumerable<SelectListItem> Categories { get; set; }
-        public int SelectedCategoryId { get; set; }
+        public int? SelectedCategoryId { get; set; }
     }
 }

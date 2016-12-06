@@ -39,8 +39,9 @@ namespace ItStepTask.Web.Controllers
             Category category;
             if (Session["categoryId"] == null)
             {
-                category = categoryService.GetAll().First();
-                Session["categoryId"] = category.Id;
+                //category = categoryService.GetAll().First();
+                //Session["categoryId"] = category.Id;
+                return null;
             }
             else
             {
@@ -66,17 +67,16 @@ namespace ItStepTask.Web.Controllers
         {
             var category = GetSelectedCategory();
 
-            var items = cacheService.Get<IEnumerable<Item>>(category.Name, () =>
+            var categories = cacheService.Get<IEnumerable<Category>>("Categories", () =>
             {
-                return itemsService.GetByCategory(category.Id).ToArray();
+                return categoryService.GetAll().ToArray();
             }, 60);
 
             var model = new HomeViewModel
             {
-                SelectedCategoryId = category.Id,
-                Items = Mapper.Map<IEnumerable<Item>, IEnumerable<ItemViewModel>>(items),
+                SelectedCategoryId = category == null ? null : (int?)category.Id,
                 ShoppingCartItemsCount = GetShoppingCartItemsCount(),
-                Categories = Mapper.Map<IEnumerable<Category>, IEnumerable<SelectListItem>>(categoryService.GetAll())
+                Categories = Mapper.Map<IEnumerable<Category>, IEnumerable<SelectListItem>>(categories)
             };
 
             return View(model);

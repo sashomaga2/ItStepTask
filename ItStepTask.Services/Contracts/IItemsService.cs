@@ -10,6 +10,6 @@ namespace ItStepTask.Services.Contracts
     public interface IItemsService : IService<Item>
     {
         IQueryable<Item> GetAll();
-        IQueryable<Item> GetByCategory(int id);
+        IQueryable<Item> GetByCategory(int? id);
     }
 }

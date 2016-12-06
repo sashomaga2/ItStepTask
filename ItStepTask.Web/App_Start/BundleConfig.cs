@@ -24,7 +24,7 @@ namespace ItStepTask.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/custom").Include(
+            bundles.Add(new ScriptBundle("~/bundles/home").Include(
                         "~/Scripts/kendo.all.min.js",
                         "~/Scripts/kendo-init.js",
                         "~/Scripts/category.js"

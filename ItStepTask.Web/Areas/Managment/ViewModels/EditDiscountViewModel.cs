@@ -25,6 +25,7 @@ namespace ItStepTask.Web.Areas.Managment.ViewModels
 
         public string SupplierName { get; set; }
 
-        public decimal Discount { get; set; }
+        [Range(0, 90, ErrorMessage = "Must be in range 0 - 90%")]
+        public int Discount { get; set; }
     }
 }

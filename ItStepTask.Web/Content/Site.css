@@ -27,3 +27,13 @@ textarea {
     width: 100px;
     height: auto;
 }
+
+.price-discounted {
+    text-decoration: line-through;
+    color: red;
+}
+
+.shopping-cart {
+    width: 50px;
+    height: auto;
+}

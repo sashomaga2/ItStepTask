@@ -20,7 +20,17 @@ namespace ItStepTask.Web.ApiControllers
     public class ItemsController : BaseApiController
     {
         // TODO configure DI for web api or move to separated project!
-        private readonly IItemsService itemsService = new ItemsService(new TaskData());
+        private readonly IItemsService itemsService; // = new ItemsService(new TaskData());
+
+        public ItemsController() : this(new ItemsService(new TaskData()))
+        {
+
+        }
+
+        public ItemsController(IItemsService itemsService) 
+        {
+            this.itemsService = itemsService;
+        }
 
         [System.Web.Http.HttpGet]
         public IHttpActionResult Get(int pageSize, int skip)

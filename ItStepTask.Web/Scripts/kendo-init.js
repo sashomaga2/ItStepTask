@@ -6,13 +6,7 @@ $(document).ready(function () {
             transport: {
                 read: "/api/Items",
                 dataType: "json",
-                type : 'GET',
-                success: function (data) {
-                    alert(data);
-                },
-                error: function (xhr, error) {
-                    console.debug(xhr); console.debug(error);
-                }
+                type : 'GET'
             },
             pageSize: 5,
             serverPaging: true,
@@ -24,8 +18,9 @@ $(document).ready(function () {
                     fields: {
                         Image: { type: "string" },
                         Name: { type: "string" },
-                        Price: { type: "number" },
-                        Quantity: { type: "number" }
+                        Price: { type: "string" },
+                        Quantity: { type: "number" },
+                        Discount: { type: "number" }
 
                         //Discontinued: { type: "boolean" }
                     }
@@ -33,9 +28,20 @@ $(document).ready(function () {
 
             },
         },
-        height: 550,
+        height: 600,
+        
+        //serverSorting: true,
+        //serverFiltering: true,
         scrollable: true,
         sortable: true,
+        //filterable: {
+        //    extra: false,
+        //    operators: {
+        //        string: {
+        //            startswith: "Starts with",
+        //        }
+        //    }
+        //},
         filterable: true,
         pageable: {
             input: true,
@@ -43,20 +49,20 @@ $(document).ready(function () {
         },
         columns: [
             {
-                field: "Image", title: "Image", width: "130px", template: "<img class='item-image'" +
+                field: "Image", title: "Image", width: "130px", filterable: false, template: "<img class='item-image'" +
                                       " src='data:image/png;base64,#=Image#' />"
             }, 
             "Name",
-            { field: "Price", title: "Unit Price", format: "{0:c}", width: "130px" },
-            { field: "Quantity", title: "Units In Stock", width: "130px" },
-            { command: { text: "Order", click: order }, title: " ", width: "100px" }
+            {
+                field: "Price", title: "Unit Price", /*format: "{0:c}",*/ width: "130px", filterable: false, template : "<div>#=Price#</div>"
+            },
+            { field: "Quantity", title: "Units In Stock", width: "130px", filterable: false },
+            { command: { text: "Order", click: order }, title: " ", width: "100px", filterable: false }
             //{ field: "Discontinued", width: "130px" }
         ]
     });
 
     function order(e) {
-        e.preventDefault();
-
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         
         $.ajax({
@@ -73,6 +79,8 @@ $(document).ready(function () {
                 alert("responseText: " + xhr.responseText);
             }
         });
+
+        return false;
     }
 
     function increaseShoppingCartCount() {

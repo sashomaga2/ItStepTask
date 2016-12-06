@@ -49,7 +49,7 @@ namespace ItStepTask.Web.Areas.Managment.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ItemAdminViewModel model)
+        public ActionResult Edit(EditDiscountViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -58,7 +58,18 @@ namespace ItStepTask.Web.Areas.Managment.Controllers
 
             try
             {
-                itemsService.Update(Mapper.Map<Item>(model));
+                var itemDb = itemsService.Find(model.Id);
+                
+                if(itemDb.Discount == null)
+                {
+                    itemDb.Discount = new Discount { Rate = model.Discount };
+                }
+                else
+                {
+                    itemDb.Discount.Rate = model.Discount;
+                }
+                
+                itemsService.Update(itemDb);
             }
             catch (Exception err)
             {
