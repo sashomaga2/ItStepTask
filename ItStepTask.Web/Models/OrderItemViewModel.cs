@@ -14,7 +14,11 @@ namespace ItStepTask.Web.Models
 
         public decimal Price { get; set; }
 
+        [Required]
+        [Range(0, 100)]
         public int Quantity { get; set; }
+
+        public int? DiscountedPrice { get; set; }
 
         public int OrderAmount { get; set; }
 

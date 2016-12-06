@@ -55,12 +55,11 @@ namespace ItStepTask.Web.Mapping
                     opt => opt.MapFrom(src => (src.Discount == null || src.Discount.Rate == 0) ? $"{src.Price} lv" : 
                             $"<p class='price-discounted'>{src.Price} lv</p><p>{src.Price - (src.Price / 100 * src.Discount.Rate)} lv</p> "));
 
-            //dataItem
-            //Discount
-
             CreateMap<Item, OrderItemViewModel>()
                 .ForMember(dest => dest.Image,
-                    opt => opt.MapFrom(src => src.Image != null ? Convert.ToBase64String(src.Image) : null));
+                    opt => opt.MapFrom(src => src.Image != null ? Convert.ToBase64String(src.Image) : null))
+                .ForMember(dest => dest.DiscountedPrice,
+                    opt => opt.MapFrom(src => src.Discount != null && src.Discount.Rate > 0 ? (int?)src.Price - (src.Price / 100 * src.Discount.Rate) : null));
 
             CreateMap<OrderItemViewModel, Order>()
                 .ForMember(dest => dest.StatusId,

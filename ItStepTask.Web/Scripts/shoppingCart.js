@@ -35,7 +35,7 @@ $(function () {
         $('.order-amount').toArray().forEach(function (input) {
             var amount = Number(input.value);
             if (amount) {
-                total += parseFloat($(input).closest('tr').children('.item-price').text()) * amount;
+                total += parseFloat($(input).closest('tr').find('.item-price').first().text()) * amount;
             }
         })
         return total;

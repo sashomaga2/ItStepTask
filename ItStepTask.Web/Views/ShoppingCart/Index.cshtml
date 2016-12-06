@@ -44,8 +44,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => Model[i].Name)
                 </td>
-                <td class="item-price">
-                    @Html.DisplayFor(modelItem => Model[i].Price)
+                <td >
+                    @if (Model[i].DiscountedPrice != null) {
+                        <p class='price-discounted'>@Model[i].Price</p>
+                        <p class="item-price">@Model[i].DiscountedPrice</p>
+                    }
+                    else
+                    {
+                        <p class="item-price">@Html.DisplayFor(modelItem => Model[i].Price)</p>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => Model[i].Quantity)
