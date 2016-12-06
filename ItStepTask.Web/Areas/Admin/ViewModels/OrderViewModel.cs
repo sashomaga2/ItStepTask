@@ -29,26 +29,11 @@ namespace ItStepTask.Web.Areas.Admin.ViewModels
 
         public string CustomerEmail { get; set; }
 
-        //public IEnumerable<SelectListItem> StatusSelectListItems { get; set; }
-
         public int LastStatusSelected { get; set; }
 
+        [Required]
         public OrderStatus StatusId { get; set; }
 
-        //[Required]
-        //public virtual string StatusId
-        //{
-        //    get
-        //    {
-        //        return ((int)this.StatusType).ToString();
-        //    }
-        //    set
-        //    {
-        //        StatusType = (OrderStatus)Int32.Parse(value);
-        //    }
-        //}
-
-        //[EnumDataType(typeof(OrderStatus))]
-        //public OrderStatus StatusType { get; set; }
+       
     }
 }

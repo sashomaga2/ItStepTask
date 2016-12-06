@@ -19,46 +19,49 @@ $(document).ready(function () {
                         Image: { type: "string" },
                         Name: { type: "string" },
                         Price: { type: "string" },
-                        Quantity: { type: "number" },
-                        Discount: { type: "number" }
-
-                        //Discontinued: { type: "boolean" }
+                        Quantity: { type: "number" }
                     }
                 }
 
             },
+            serverFiltering: true,
+            //filter: { field: "Name", operator: "startswith", value: "" }
         },
         height: 600,
         
         //serverSorting: true,
-        //serverFiltering: true,
+        
         scrollable: true,
         sortable: true,
-        //filterable: {
-        //    extra: false,
-        //    operators: {
-        //        string: {
-        //            startswith: "Starts with",
-        //        }
-        //    }
-        //},
-        filterable: true,
+        
+        //filterable: true,
         pageable: {
             input: true,
             numeric: false
+        },
+        filterable: {
+            extra: false,
+            operators: {
+                string: {
+                    startswith: "starts with"
+                }
+            }
         },
         columns: [
             {
                 field: "Image", title: "Image", width: "130px", filterable: false, template: "<img class='item-image'" +
                                       " src='data:image/png;base64,#=Image#' />"
-            }, 
-            "Name",
+            },
+            {
+                field: "Name"
+            },
+            
             {
                 field: "Price", title: "Unit Price", /*format: "{0:c}",*/ width: "130px", filterable: false, template : "<div>#=Price#</div>"
             },
             { field: "Quantity", title: "Units In Stock", width: "130px", filterable: false },
             { command: { text: "Order", click: order }, title: " ", width: "100px", filterable: false }
-            //{ field: "Discontinued", width: "130px" }
+            
         ]
     });
 

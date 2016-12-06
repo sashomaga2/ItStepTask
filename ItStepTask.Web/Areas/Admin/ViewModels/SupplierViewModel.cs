@@ -12,6 +12,7 @@ namespace ItStepTask.Web.Areas.Admin.ViewModels
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Required!")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Must be between 3 and 50 symbols!")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Required!")]

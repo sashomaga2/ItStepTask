@@ -9,20 +9,19 @@ namespace ItStepTask.Web.Areas.Admin.ViewModels
 {
     public class CreateItemViewModel
     {
-        [Key]
-        public int Id { get; set; }
-        public string Name { get; set; }
-
-        public decimal Price { get; set; }
-
+        [Key] 
+        [Range(0, 10000, ErrorMessage = "Must be from 0 to 10000")]
+        [Required]
         public int Quantity { get; set; }
 
         public IEnumerable<SelectListItem> SuppliersSelectListItems { get; set; }
 
+        [Required]
         public int SupplierId { get; set; }
 
         public IEnumerable<SelectListItem> CategoriesSelectListItems { get; set; }
 
+        [Required]
         public int CategoryId { get; set; }
 
         public byte[] Image { get; set; }

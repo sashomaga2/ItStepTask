@@ -14,6 +14,7 @@ using ItStepTask.Services.Contracts;
 using ItStepTask.Web.Mapping;
 using ItStepTask.Web.Models;
 using System.Web;
+using ItStepTask.Common;
 
 namespace ItStepTask.Web.ApiControllers
 {
@@ -33,14 +34,21 @@ namespace ItStepTask.Web.ApiControllers
         }
 
         [System.Web.Http.HttpGet]
-        public IHttpActionResult Get(int pageSize, int skip)
+        public IHttpActionResult Get(int pageSize, int skip, int page, int take)
         {
+
             var categoryId = HttpContext.Current.Session["CategoryId"];
             var dbItems = itemsService.GetAll();
 
             if (categoryId != null)
             {
                 dbItems = dbItems.Where(i => i.Category.Id == (int)categoryId);
+            }
+
+            if(HttpContext.Current.Request.Params[AppConstants.NameGridFilter] != null)
+            {
+                var nameStartsWith = HttpContext.Current.Request.Params[AppConstants.NameGridFilter];
+                dbItems = dbItems.Where(i => i.Name.StartsWith(nameStartsWith));
             }
 
             var memoryItems = dbItems.ToArray();
