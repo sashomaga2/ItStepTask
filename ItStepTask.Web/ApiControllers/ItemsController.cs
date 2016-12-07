@@ -21,7 +21,7 @@ namespace ItStepTask.Web.ApiControllers
     public class ItemsController : BaseApiController
     {
         // TODO configure DI for web api or move to separated project!
-        private readonly IItemsService itemsService; // = new ItemsService(new TaskData());
+        private readonly IItemsService itemsService; 
 
         public ItemsController() : this(new ItemsService(new TaskData()))
         {
@@ -58,6 +58,11 @@ namespace ItStepTask.Web.ApiControllers
             return Json(new { total = total, data = Mapper.Map<IEnumerable<Item>, IEnumerable<ItemViewModel>>(memoryItems.Skip(skip).Take(pageSize)).ToList() });
         }
 
+        [System.Web.Http.HttpGet]
+        public IHttpActionResult GetDetails(int id)
+        {
 
+            return Json("ok");
+        }
     }
 }

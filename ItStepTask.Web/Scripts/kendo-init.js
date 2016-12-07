@@ -16,6 +16,7 @@ $(document).ready(function () {
                 total: "total", // total number of records is in the "total" field of the response
                 model: {
                     fields: {
+                        Id: { type: "number" },
                         Image: { type: "string" },
                         Name: { type: "string" },
                         Price: { type: "string" },
@@ -27,6 +28,8 @@ $(document).ready(function () {
             serverFiltering: true,
             //filter: { field: "Name", operator: "startswith", value: "" }
         },
+        //change: onChange,
+        dataBound: onDataBound,
         height: 600,
         
         //serverSorting: true,
@@ -48,12 +51,12 @@ $(document).ready(function () {
             }
         },
         columns: [
-            {
-                field: "Image", title: "Image", width: "130px", filterable: false, template: "<img class='item-image'" +
-                                      " src='data:image/png;base64,#=Image#' />"
+            {                                                                                   //javascript:void(0)
+                field: "Image", title: "Image", width: "130px", filterable: false, template: "<a href='delailts/#=Id#' class='item-details'><img class='item-image'" +
+                                      " src='data:image/png;base64,#=Image#' /></>"
             },
             {
-                field: "Name"
+                field: "Name", template: "<a href='delailts/#=Id#' class='item-details'>#=Name#</a>"
             },
             
             {
@@ -91,6 +94,38 @@ $(document).ready(function () {
         var count = Number($el.text());
         $el.text(++count);
     }
+
+    var handleDetailsClick = function (e) {
+        console.log("handleDetailsClick", e.currentTarget);
+        console.log("id", $(e.currentTarget).attr("href").split('/')[1]);
+
+        var id =  $(e.currentTarget).attr("href").split('/')[1];
+
+        $.ajax({
+            type: "GET",
+            url: "api/Items/getDetails/" + id,
+            //contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                alert("Seuccess!");
+                if (response.success) {
+                    
+                }
+            },
+            error: function (xhr, err) {
+                alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+                alert("responseText: " + xhr.responseText);
+            }
+        });
+
+        return false;
+    }
+
+    function onDataBound() {
+        console.log("onDataBound!");
+        $('.item-details').click(handleDetailsClick);
+    }
+
+    
 });
 
 

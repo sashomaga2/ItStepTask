@@ -65,19 +65,29 @@ namespace ItStepTask.Web.Controllers
 
         public ActionResult Index()
         {
-            var category = GetSelectedCategory();
-
-            var categories = cacheService.Get<IEnumerable<Category>>("Categories", () =>
+            HomeViewModel model;
+            try
             {
-                return categoryService.GetAll().ToArray();
-            }, 60);
+                var category = GetSelectedCategory();
 
-            var model = new HomeViewModel
+                var categories = cacheService.Get<IEnumerable<Category>>("Categories", () =>
+                {
+                    return categoryService.GetAll().ToArray();
+                }, 60);
+
+                model = new HomeViewModel
+                {
+                    SelectedCategoryId = category == null ? null : (int?) category.Id,
+                    ShoppingCartItemsCount = GetShoppingCartItemsCount(),
+                    Categories = Mapper.Map<IEnumerable<Category>, IEnumerable<SelectListItem>>(categories)
+                };
+            }
+            catch (Exception err)
             {
-                SelectedCategoryId = category == null ? null : (int?)category.Id,
-                ShoppingCartItemsCount = GetShoppingCartItemsCount(),
-                Categories = Mapper.Map<IEnumerable<Category>, IEnumerable<SelectListItem>>(categories)
-            };
+                //TODO log 
+                Console.WriteLine(err.Message);
+                return new HttpStatusCodeResult(500, "Error in Db");
+            }
 
             return View(model);
         }
