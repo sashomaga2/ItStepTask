@@ -9,6 +9,7 @@ namespace ItStepTask.Entity
 {
     public class Discount : BaseModel
     {
+        [Required]
         [Range(0, 100)]
         public int Rate { get; set; }
     }

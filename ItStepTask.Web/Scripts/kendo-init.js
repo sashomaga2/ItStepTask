@@ -51,7 +51,7 @@ $(document).ready(function () {
             }
         },
         columns: [
-            {                                                                                   //javascript:void(0)
+            {                                                                                   
                 field: "Image", title: "Image", width: "130px", filterable: false, template: "<a href='delailts/#=Id#' class='item-details'><img class='item-image'" +
                                       " src='data:image/png;base64,#=Image#' /></>"
             },
@@ -103,13 +103,12 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: "api/Items/getDetails/" + id,
+            url: "/Items/Details/" + id,
             //contentType: "application/json; charset=utf-8",
-            success: function (response) {
-                alert("Seuccess!");
-                if (response.success) {
-                    
-                }
+            success: function (html) {
+                console.log("success", html);
+                $('.modal-dialog').html(html);
+                $('#myModal').modal('toggle');
             },
             error: function (xhr, err) {
                 alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);

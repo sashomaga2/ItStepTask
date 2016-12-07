@@ -14,8 +14,6 @@
 
         public IDbSet<ApplicationUser> Users { get; set; }
 
-        public IDbSet<Post> Posts { get; set; }
-
         public IDbSet<Item> Items { get; set; }
 
         public IDbSet<ShoppingCart> ShoppingCart { get; set; }
@@ -23,8 +21,6 @@
         public IDbSet<Supplier> Suppliers { get; set; }
 
         public IDbSet<Category> Categories { get; set; }
-
-        public IDbSet<UserData> UserData { get; set; }
 
         public IDbSet<Order> Orders { get; set; }
 
@@ -35,8 +31,5 @@
             return new TaskDbContext();
         }
 
-        //public System.Data.Entity.DbSet<ItStepTask.Web.Areas.Managment.ViewModels.EditDiscountViewModel> EditDiscountViewModels { get; set; }
-
-        //public System.Data.Entity.DbSet<ItStepTask.Web.Areas.Managment.ViewModels.ItemManagmentViewModel> ItemManagmentViewModels { get; set; }
     }
 }

@@ -1,0 +1,44 @@
+﻿@model ItStepTask.Web.Models.ItemViewModel
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">@Model.Name</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dd>
+                @{
+                var imgSrc = String.Format("data:image/gif;base64,{0}", Model.Image);
+                }
+
+                <img src="@imgSrc" class="item-image" />
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.Price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+            
+
+        </dl>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+</div>
+
+
+<script></script>

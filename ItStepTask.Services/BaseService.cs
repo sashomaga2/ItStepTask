@@ -35,16 +35,8 @@ namespace ItStepTask.Services
 
         public virtual void Add(T entity, int id)
         {
-            if (repository.Find(id) != null)
-            {
-                repository.Update(entity);
-            }
-            else
-            {
-                repository.Add(entity);
-            }
-            
-            repository.SaveChanges();
+            this.repository.Add(entity);
+            this.repository.SaveChanges();
         }
 
         public virtual void Add(T entity)
@@ -63,6 +55,12 @@ namespace ItStepTask.Services
         public virtual void Delete(object id)
         {
             this.repository.Delete(id);
+            this.repository.SaveChanges();
+        }
+
+        public virtual void Delete(T entity)
+        {
+            this.repository.Delete(entity);
             this.repository.SaveChanges();
         }
 

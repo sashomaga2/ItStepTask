@@ -12,6 +12,8 @@ namespace ItStepTask.Entity
     {
         public virtual Item Item { get; set; }
 
+        [Required]
+        [Range(0, 1000)]
         public int OrderAmount { get; set; }
  
         public virtual ApplicationUser User { get; set; }

@@ -18,19 +18,16 @@ namespace ItStepTask.Services
     public class ShopService : IShopService
     {
         private readonly ICategoryService categoryService;
-        private readonly IUserDataService userDataService;
         private readonly IUsersService userService;
         private readonly IShoppingCartService shoppingCardService;
         private readonly IItemsService itemsService;
 
         public ShopService( ICategoryService categoryService, 
-                            IUserDataService userDataService, 
                             IUsersService userService, 
                             IShoppingCartService shoppingCardService,
                             IItemsService itemsService)
         {
             this.categoryService = categoryService;
-            this.userDataService = userDataService;
             this.userService = userService;
             this.shoppingCardService = shoppingCardService;
             this.itemsService = itemsService;
@@ -80,7 +77,7 @@ namespace ItStepTask.Services
                 throw new InvalidOperationException("User or Category does not exists!");
             }
 
-            userDataService.Add(new UserData { SelectedCategory = category, User = user });
+            //userDataService.Add(new UserData { SelectedCategory = category, User = user });
 
         }
 

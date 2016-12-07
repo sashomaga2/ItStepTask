@@ -18,13 +18,35 @@ namespace ItStepTask.Services
 
         public override IQueryable<Category> GetAll()
         {
-            return base.GetAll().OrderByDescending(p => p.CreatedOn);
+            return base.GetAll().Where(i => i.IsDeleted == false).OrderByDescending(p => p.CreatedOn);
         }
 
         public override void Add(Category entity)
         {
-            entity.CreatedOn = DateTime.Now;
-            base.Add(entity, entity.Id);
+            if (Find(entity.Id) != null)
+            {
+                base.Update(entity);
+            }
+            else
+            {
+                entity.CreatedOn = DateTime.Now;
+                base.Add(entity);
+            }
+        }
+
+        public override void Delete(object id)
+        {
+            var item = Find((int)id);
+            if (item != null)
+            {
+                Delete(item);
+            }
+        }
+
+        public override void Delete(Category item)
+        {
+            item.IsDeleted = true;
+            base.Update(item);
         }
 
 

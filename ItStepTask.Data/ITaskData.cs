@@ -6,7 +6,6 @@ namespace ItStepTask.Data
     public interface ITaskData
     {
         IRepository<ApplicationUser> Users { get; }
-        IRepository<Post> Posts { get; }
 
         IRepository<Item> Items { get; }
 
@@ -16,7 +15,7 @@ namespace ItStepTask.Data
 
         IRepository<Supplier> Suppliers { get; }
 
-        IRepository<UserData> UserData { get; }
+        IRepository<Order> Orders { get; }
 
 
         IRepository<T> GetRepository<T>() where T:class;

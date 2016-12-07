@@ -58,11 +58,5 @@ namespace ItStepTask.Web.ApiControllers
             return Json(new { total = total, data = Mapper.Map<IEnumerable<Item>, IEnumerable<ItemViewModel>>(memoryItems.Skip(skip).Take(pageSize)).ToList() });
         }
 
-        [System.Web.Http.HttpGet]
-        public IHttpActionResult GetDetails(int id)
-        {
-
-            return Json("ok");
-        }
     }
 }

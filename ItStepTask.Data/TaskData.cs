@@ -30,14 +30,6 @@
             }
         }
 
-        public IRepository<Post> Posts
-        {
-            get
-            {
-                return this.GetRepository<Post>();
-            }
-        }
-
         public IRepository<Item> Items
         {
             get
@@ -70,11 +62,11 @@
             }
         }
 
-        public IRepository<UserData> UserData
+        public IRepository<Order> Orders
         {
             get
             {
-                return this.GetRepository<UserData>();
+                return this.GetRepository<Order>();
             }
         }
 

@@ -139,10 +139,7 @@ namespace ItStepTask.Web.Mapping
             CreateMap<Supplier, SupplierViewModel>();
             CreateMap<SupplierViewModel, Supplier>();
 
-            CreateMap<Post, PostViewModel>()
-                .ForMember(dest => dest.SubHeader, 
-                    opt => opt.MapFrom(src => src.Content.Length > AppConstants.MaxSubHeaderSize ? 
-                        src.Content.Substring(0, AppConstants.MaxSubHeaderSize) : src.Content));
+            
         }
     }
 
