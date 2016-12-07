@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using ItStepTask.Entity;
-using ItStepTask.Web.Models;
+using ItStepTask.Web.ViewModels;
 
 namespace ItStepTask.Web.Mapping
 {

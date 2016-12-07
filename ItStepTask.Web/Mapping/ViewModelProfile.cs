@@ -5,7 +5,7 @@ using System.Web;
 using AutoMapper;
 using ItStepTask.Common;
 using ItStepTask.Entity;
-using ItStepTask.Web.Models;
+using ItStepTask.Web.ViewModels;
 using ItStepTask.Web.Areas.Admin.ViewModels;
 using System.Web.Mvc;
 using ItStepTask.Web.Areas.Managment.ViewModels;

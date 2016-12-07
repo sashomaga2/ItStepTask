@@ -12,7 +12,7 @@ using ItStepTask.Entity;
 using ItStepTask.Services;
 using ItStepTask.Services.Contracts;
 using ItStepTask.Web.Mapping;
-using ItStepTask.Web.Models;
+using ItStepTask.Web.ViewModels;
 using System.Web;
 using ItStepTask.Common;
 

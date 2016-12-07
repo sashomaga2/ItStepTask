@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ItStepTask.Web.Models
+namespace ItStepTask.Web.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {

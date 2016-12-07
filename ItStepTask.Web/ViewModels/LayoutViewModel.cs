@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ItStepTask.Web.Models
+namespace ItStepTask.Web.ViewModels
 {
     public abstract class LayoutViewModel
     {

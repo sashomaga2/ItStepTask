@@ -1,4 +1,4 @@
-﻿using ItStepTask.Web.Models;
+﻿using ItStepTask.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,13 +47,12 @@ namespace ItStepTask.Web.Controllers
                     }
                     var item = itemsService.Find(orderItem.Id);
                     item.Quantity = item.Quantity - orderItem.OrderAmount;
+                    itemsService.Update(item);
 
-                
-                        itemsService.Update(item);
-                        var order = Mapper.Map<Order>(orderItem);
-                        order.User = user;
-                        order.Item = item;
-                        ordersService.Add(order);
+                    var order = Mapper.Map<Order>(orderItem);
+                    order.User = user;
+                    order.Item = item;
+                    ordersService.Add(order);
                 }
 
                 Session["ShoppingCartItems"] = null;

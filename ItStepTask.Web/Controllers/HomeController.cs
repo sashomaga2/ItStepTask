@@ -9,7 +9,7 @@ using ItStepTask.Data;
 using ItStepTask.Entity;
 using ItStepTask.Services;
 using ItStepTask.Services.Contracts;
-using ItStepTask.Web.Models;
+using ItStepTask.Web.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 

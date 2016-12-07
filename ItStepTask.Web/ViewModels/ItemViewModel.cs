@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace ItStepTask.Web.Models
+namespace ItStepTask.Web.ViewModels
 {
     public class ItemViewModel
     {

@@ -7,7 +7,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using ItStepTask.Web.Models;
+using ItStepTask.Web.ViewModels;
 
 namespace ItStepTask.Web
 {

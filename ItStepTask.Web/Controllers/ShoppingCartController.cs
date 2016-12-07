@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ItStepTask.Entity;
 using ItStepTask.Services.Contracts;
-using ItStepTask.Web.Models;
+using ItStepTask.Web.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
