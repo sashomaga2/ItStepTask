@@ -1,0 +1,68 @@
+﻿@model IList<ItStepTask.Web.Areas.Admin.ViewModels.PurchaseViewModel>
+
+@using (Ajax.BeginForm("Edit", "Purchases", FormMethod.Post, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "editForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].CustomerEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].CustomerNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Total)
+            </th>
+            
+           
+            <th></th>
+        </tr>
+
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                @Html.HiddenFor(modelItem => Model[i].Id) 
+                @Html.HiddenFor(modelItem => Model[i].LastStatusSelected, new { @class = "order-last-selected" })
+                
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].CustomerEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].CustomerNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].Total)
+                </td>
+               
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.EnumDropDownListFor(modelItem => Model[i].StatusId, null, new { @class = "form-control order-status" })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    @{ Html.RenderPartial("_Orders", Model[i].Orders); }
+                </td>
+            </tr>
+    }
+
+    </table>
+
+    <div class="container pull-right">
+        <input type="submit" id="orderStatusEdit" class="btn btn-success" />
+    </div>
+}
+
+
+

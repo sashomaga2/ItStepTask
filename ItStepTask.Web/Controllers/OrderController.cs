@@ -17,14 +17,17 @@ namespace ItStepTask.Web.Controllers
         IOrdersService ordersService;
         IItemsService itemsService;
         IUsersService usersService;
+        IPurchaseService purchaseService;
 
         public OrderController( IOrdersService ordersService, 
                                 IItemsService itemsService,
-                                IUsersService usersService)
+                                IUsersService usersService,
+                                IPurchaseService purchaseService)
         {
             this.ordersService = ordersService;
             this.itemsService = itemsService;
             this.usersService = usersService;
+            this.purchaseService = purchaseService;
         }
 
         [HttpPost]
@@ -35,10 +38,12 @@ namespace ItStepTask.Web.Controllers
                 return new HttpNotFoundResult();
             }
 
-            //try
+            //TODO chech for atleast one order with quantity
+            try
             {
                 var user = usersService.Find(User.Identity.GetUserId());
-                var purchause = new Purchase { CreatedOn = DateTime.Now, User = user, StatusId = (int)OrderStatus.New }; 
+                var purchause = new Purchase { User = user, StatusId = (int)OrderStatus.New };
+                purchaseService.Add(purchause);
 
                 foreach (var orderItem in orderItems)
                 {
@@ -60,12 +65,12 @@ namespace ItStepTask.Web.Controllers
 
                 Session["ShoppingCartItems"] = null;
             }
-            //catch (Exception err)
-            //{
-            //    //TODO log 
-            //    Console.WriteLine(err.Message);
-            //    return new HttpStatusCodeResult(500, "Error in Db");
-            //}
+            catch (Exception err)
+            {
+                //TODO log 
+                Console.WriteLine(err.Message);
+                return new HttpStatusCodeResult(500, "Error in Db");
+            }
 
             return RedirectToAction("Index", "Home");
         }

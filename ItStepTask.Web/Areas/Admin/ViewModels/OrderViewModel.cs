@@ -11,29 +11,32 @@ namespace ItStepTask.Web.Areas.Admin.ViewModels
     // TODO add user address for delivary
     public class OrderViewModel
     {
+        [Key]
         public int Id { get; set; }
 
         public string Image { get; set; }
 
+        [Required]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Must be between 3 and 50 symbols!")]
         public string Name { get; set; }
 
-        public decimal Price { get; set; }
-
-        public int Quantity { get; set; }
-
-        public int OrderAmount { get; set; }
-
-        public decimal Total { get; set; }
-
-        public string CustomerNumber { get; set; }
-
-        public string CustomerEmail { get; set; }
-
-        public int LastStatusSelected { get; set; }
+        [Required]
+        [Range(0, 10000)]
+        public string Price { get; set; }
 
         [Required]
-        public OrderStatus StatusId { get; set; }
+        [Range(0, 10000)]
+        public int Quantity { get; set; }
 
-       
+        [Required]
+        [Range(0, 10000)]
+        public int OrderAmount { get; set; }
+
+        [Required]
+        [Range(0, 10000)]
+        public decimal Total { get; set; }
+
+        [Required]
+        public string Discount { get; set; }
     }
 }

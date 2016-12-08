@@ -27,6 +27,8 @@ namespace ItStepTask.Web.IoCContainer.Installers
             container.Register(Component.For<IUsersService>().ImplementedBy<UsersService>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IOrdersService>().ImplementedBy<OrdersService>().LifeStyle.PerWebRequest);
             container.Register(Component.For<ICacheService>().ImplementedBy<HttpCacheService>().LifeStyle.PerWebRequest);
+            container.Register(Component.For<IPurchaseService>().ImplementedBy<PurchaseService>().LifeStyle.PerWebRequest);
+            //IPurchase
             container.Register(
                 Component.For<IMapper>().UsingFactoryMethod(() => AutoMapperConfiguration.Config.CreateMapper()));
 

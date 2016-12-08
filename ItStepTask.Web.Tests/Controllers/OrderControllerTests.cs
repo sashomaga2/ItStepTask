@@ -22,9 +22,10 @@ namespace ItStepTask.Web.Tests.Controllers
             var ordersService = new Mock<IOrdersService>();
             var itemsService = new Mock<IItemsService>();
             var usersService = new Mock<IUsersService>();
+            var purchaseService = new Mock<IPurchaseService>();
 
             // Arrange
-            var controller = new OrderController(ordersService.Object, itemsService.Object, usersService.Object);
+            var controller = new OrderController(ordersService.Object, itemsService.Object, usersService.Object, purchaseService.Object);
 
             // Act
             var result = controller.Place(null) as HttpNotFoundResult;

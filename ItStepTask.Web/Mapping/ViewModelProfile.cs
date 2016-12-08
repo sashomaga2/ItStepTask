@@ -74,26 +74,43 @@ namespace ItStepTask.Web.Mapping
             //}).ToList();
 
             CreateMap<Order, OrderViewModel>()
-                .ForMember(dest => dest.CustomerEmail,
-                    opt => opt.MapFrom(src => src.User.Email))
-                .ForMember(dest => dest.CustomerNumber,
-                    opt => opt.MapFrom(src => src.User.PhoneNumber))
                 .ForMember(dest => dest.Image,
                     opt => opt.MapFrom(src => src.Item.Image != null ? Convert.ToBase64String(src.Item.Image) : null))
                 .ForMember(dest => dest.Name,
                     opt => opt.MapFrom(src => src.Item.Name))
                 .ForMember(dest => dest.OrderAmount,
                     opt => opt.MapFrom(src => src.OrderAmount))
-                .ForMember(dest => dest.Price,
-                    opt => opt.MapFrom(src => src.Item.Price))
                 .ForMember(dest => dest.Quantity,
                     opt => opt.MapFrom(src => src.Item.Quantity))
                 .ForMember(dest => dest.Total,
-                    opt => opt.MapFrom(src => src.OrderAmount * src.Item.Price))
+                    opt => opt.MapFrom(src => src.OrderAmount * (src.Item.Discount == null || src.Item.Discount.Rate == 0 ? 
+                                                                        src.Item.Price : src.Item.Price - (src.Item.Price / 100 * src.Item.Discount.Rate))))
+                .ForMember(dest => dest.Discount,
+                    opt => opt.MapFrom(src => src.Item.Discount == null || src.Item.Discount.Rate == 0 ? $"{default(int)}%" : $"{src.Item.Discount.Rate}%"))
+                .ForMember(dest => dest.Price,
+                    opt => opt.MapFrom(src => (src.Item.Discount == null || src.Item.Discount.Rate == 0) ? $"{src.Item.Price} lv" :
+                            $"<p class='price-discounted'>{src.Item.Price} lv</p><p>{src.Item.Price - (src.Item.Price / 100 * src.Item.Discount.Rate)} lv</p> "));
+
+
+            CreateMap<Purchase, PurchaseViewModel>()
+                .ForMember(dest => dest.CustomerEmail,
+                    opt => opt.MapFrom(src => src.User.Email))
+                .ForMember(dest => dest.CustomerNumber,
+                    opt => opt.MapFrom(src => src.User.PhoneNumber))
                 .ForMember(dest => dest.LastStatusSelected,
                     opt => opt.MapFrom(src => (int)src.StatusId))
                 .ForMember(dest => dest.StatusId,
-                    opt => opt.MapFrom(src => (OrderStatus)src.StatusId));
+                    opt => opt.MapFrom(src => (OrderStatus)src.StatusId))
+                //Aggregate((a, b) => a.OrderAmount * a.Item.Price + b.OrderAmount * b.Item.Price)));
+                .ForMember(dest => dest.Total,
+                    opt => opt.MapFrom(src => src.Orders.Select(o => o.OrderAmount * (o.Item.Discount == null || o.Item.Discount.Rate == 0 ?
+                                                                        o.Item.Price : o.Item.Price - (o.Item.Price / 100 * o.Item.Discount.Rate))).Sum()))
+                .ForMember(dest => dest.CreatedOn,
+                    opt => opt.MapFrom(src => src.CreatedOn.Value.ToString()))
+                .ForMember(dest => dest.Orders,
+                    src => src.ResolveUsing((item, orderDto, i, context) => 
+                        context.Mapper.Map<IEnumerable<Order>, IEnumerable<OrderViewModel>>(item.Orders)));
+
 
             CreateMap<Item, ItemManagmentViewModel>()
                 .ForMember(dest => dest.Image,
