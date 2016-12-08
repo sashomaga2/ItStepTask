@@ -63,6 +63,7 @@ namespace ItStepTask.Web.Controllers
 
         #endregion
 
+        [HttpGet]
         public ActionResult Index()
         {
             HomeViewModel model;

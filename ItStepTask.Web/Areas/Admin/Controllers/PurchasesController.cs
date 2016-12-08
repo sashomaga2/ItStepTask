@@ -25,6 +25,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers
             this.purchaseService = purchaseService;
         }
         // GET: Admin/Order
+        [HttpGet]
         public ActionResult Index()
         { 
             ViewBag.OrderStatusList = MapOrderStatusEnumToListItems();
@@ -50,6 +51,8 @@ namespace ItStepTask.Web.Areas.Admin.Controllers
             return items.AsEnumerable();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(IList<PurchaseViewModel> purchases)
         {
             foreach (var purchase in purchases)

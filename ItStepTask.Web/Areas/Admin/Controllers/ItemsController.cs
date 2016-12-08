@@ -35,6 +35,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers
             this.suppliersService = suppliersService;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             var items = mapper.Map<ICollection<Item>,
@@ -43,6 +44,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers
             return View(items);
         }
 
+        [HttpGet]
         public ActionResult Create()
         {
             CreateItemViewModel model;

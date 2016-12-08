@@ -24,6 +24,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers
             this.suppliersService = suppliersService;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             List<Supplier> suppliersDb;
@@ -45,6 +46,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers
             return View(suppliers);
         }
 
+        [HttpGet]
         public ActionResult Create()
         {
             return View();

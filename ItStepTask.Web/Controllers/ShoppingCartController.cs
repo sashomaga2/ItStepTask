@@ -33,6 +33,7 @@ namespace ItStepTask.Web.Controllers
         }
 
         // GET: ShoppingCart
+        [HttpGet]
         public ActionResult Index()
         {
             if(Session["ShoppingCartItems"] == null)

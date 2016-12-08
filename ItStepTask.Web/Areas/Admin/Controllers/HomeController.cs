@@ -12,6 +12,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers
 
         //private TestDbTest
         // GET: Admin/Home
+        [HttpGet]
         public ActionResult Index()
         {
             
