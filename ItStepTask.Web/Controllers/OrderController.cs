@@ -35,9 +35,10 @@ namespace ItStepTask.Web.Controllers
                 return new HttpNotFoundResult();
             }
 
-            try
+            //try
             {
                 var user = usersService.Find(User.Identity.GetUserId());
+                var purchause = new Purchase { CreatedOn = DateTime.Now, User = user, StatusId = (int)OrderStatus.New }; 
 
                 foreach (var orderItem in orderItems)
                 {
@@ -45,6 +46,7 @@ namespace ItStepTask.Web.Controllers
                     {
                         continue;
                     }
+
                     var item = itemsService.Find(orderItem.Id);
                     item.Quantity = item.Quantity - orderItem.OrderAmount;
                     itemsService.Update(item);
@@ -52,17 +54,18 @@ namespace ItStepTask.Web.Controllers
                     var order = Mapper.Map<Order>(orderItem);
                     order.User = user;
                     order.Item = item;
+                    order.Purchase = purchause;
                     ordersService.Add(order);
                 }
 
                 Session["ShoppingCartItems"] = null;
             }
-            catch (Exception err)
-            {
-                //TODO log 
-                Console.WriteLine(err.Message);
-                return new HttpStatusCodeResult(500, "Error in Db");
-            }
+            //catch (Exception err)
+            //{
+            //    //TODO log 
+            //    Console.WriteLine(err.Message);
+            //    return new HttpStatusCodeResult(500, "Error in Db");
+            //}
 
             return RedirectToAction("Index", "Home");
         }

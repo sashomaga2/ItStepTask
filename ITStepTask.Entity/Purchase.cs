@@ -7,26 +7,13 @@ using System.Threading.Tasks;
 
 namespace ItStepTask.Entity
 {
-    //public enum OrderStatus { New, Hold, Shipped, Delivered, Closed }
-    public class Order : BaseModel
-    {
-        public virtual Item Item { get; set; }
+    public enum OrderStatus { New, Hold, Shipped, Delivered, Closed }
 
-        [Required]
-        [Range(0, 1000)]
-        public int OrderAmount { get; set; }
- 
+    public class Purchase : BaseModel
+    {
         public virtual ApplicationUser User { get; set; }
 
-        public virtual Purchase Purchase { get; set; }
-
-        //public int StatusId { get; set; }
-
-        //public OrderStatus Status
-        //{
-        //    get { return (OrderStatus)StatusId; }
-        //    set { StatusId = (int)value; }
-        //}
+        public virtual ICollection<Order> Orders { get; set; }
 
         [Required]
         public virtual int StatusId
