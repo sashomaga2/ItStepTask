@@ -30,7 +30,5 @@
         {
             return new TaskDbContext();
         }
-
-        //public System.Data.Entity.DbSet<ItStepTask.Web.Areas.Admin.ViewModels.OrderViewModel> OrderViewModels { get; set; }
     }
 }

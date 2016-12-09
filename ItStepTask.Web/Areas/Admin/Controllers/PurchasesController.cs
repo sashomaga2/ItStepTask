@@ -76,7 +76,7 @@ namespace ItStepTask.Web.Areas.Admin.Controllers
                 }
             }
 
-            return PartialView("./_EditOrders", GetPurchases());
+            return PartialView("./_EditPurchases", GetPurchases());
         }
 
         private IList<PurchaseViewModel> GetPurchases()
